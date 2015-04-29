@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Administration - {% endblock %}
+
+{% block content %}
+<h3 class="page-header">
+    <span>ADMINISTRATION</span>
+    <div class="pull-right">
+        <a href="{% url 'change_password' %}">Change password</a>
+        <span class="separator">/</span>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</h3>
+
+{% include "messages.html" %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">BITCOIN CLIENT</div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover no-border">
+                    <tr><th>LAN address</th><td><span class="lan-address"></span></td></tr>
+                    <tr><th>WAN address</th><td><span class="wan-address"></span></td></tr>
+                    <tr><th>User agent</th><td><span class="user-agent"></span></td></tr>
+                    <tr><th>Protocol version</th><td><span class="protocol-version"></span></td></tr>
+                    <tr><th>Blocks</th><td><span class="blocks"></span></td></tr>
+                    <tr><th>Connections</th><td><span class="connections"></span></td></tr>
+                </table>
+            </div>
+            <div class="panel-footer text-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" id="start_bitcoind" value="start" disabled="disabled">START</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="stop_bitcoind" value="stop" disabled="disabled">STOP</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">SYSTEM</div>
+            <div class="panel-body" id="system-info">
+                {% include "administration/system_info.html" %}
+            </div>
+            <div class="panel-footer text-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" id="shutdown" value="-h">SHUT DOWN</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="restart" value="-r">RESTART</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">BITCOIN ADDRESS</div>
+            <div class="panel-body">
+                <form method="post" action="{% url 'set_bitcoin_address' %}">{% csrf_token %}
+                    <p>Associate a Bitcoin address with your Bitcoin client. The address will be shown on your public status page.</p>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-sm" id="id_bitcoin_address" name="bitcoin_address" placeholder="Bitcoin address" value="{{ request.bitcoin_address.bitcoin_address }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">SAVE</button>
+                    {% if request.bitcoin_address.bitcoin_address %}
+                        <button type="button" class="btn btn-link btn-sm pull-right" id="remove_bitcoin_address">REMOVE</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">BANDWIDTH LIMIT</div>
+            <div class="panel-body">
+                <form method="post" action="{% url 'set_bandwidth' %}">{% csrf_token %}
+                    <p>Set max. uplink speed for your Bitcoin client. Set to 0 to remove bandwidth limit.</p>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon input-sm"><i class="fa fa-upload"></i> Uplink</span>
+                            <input type="text" class="form-control input-sm" id="id_max_uplink" name="max_uplink" placeholder="Max. uplink" value="{{ request.bandwidth.max_uplink }}">
+                            <span class="input-group-addon input-sm">kbps</span>
+                        </div>
+                    </div>
+                    <p>
+                        <span>Use recommended value based on the best effort speed of your Internet connection:</span>
+                        <div class="btn-group btn-group-sm" data-toggle="buttons">
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 1500 %} active{% endif %}"><input type="radio" name="link_speed" value="1500" autocomplete="off"{% if request.bandwidth.link_speed == 1500 %} checked{% endif %}> 1.5 Mbps</label>
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 25000 %} active{% endif %}"><input type="radio" name="link_speed" value="25000" autocomplete="off"{% if request.bandwidth.link_speed == 25000 %} checked{% endif %}> 25 Mbps</label>
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 50000 %} active{% endif %}"><input type="radio" name="link_speed" value="50000" autocomplete="off"{% if request.bandwidth.link_speed == 50000 %} checked{% endif %}> 50 Mbps</label>
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 100000 %} active{% endif %}"><input type="radio" name="link_speed" value="100000" autocomplete="off"{% if request.bandwidth.link_speed == 100000 %} checked{% endif %}> 100 Mbps</label>
+                        </div>
+                    </p>
+                    <button type="submit" class="btn btn-primary btn-sm">SAVE</button>
+                    {% if request.bandwidth.max_uplink > 0 %}
+                        <button type="button" class="btn btn-link btn-sm pull-right" id="remove_bandwidth_limit">REMOVE</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script>
+node.watch('bitcoind_running', function(id, oldVal, newVal) {
+    if (!newVal) {
+        $('#stop_bitcoind').prop('disabled', 'disabled');
+        $('#start_bitcoind').prop('disabled', false);
+    } else {
+        $('#start_bitcoind').prop('disabled', 'disabled');
+        $('#stop_bitcoind').prop('disabled', false);
+    }
+    if (!node.system_shutdown)
+        $('#overlay').hide();
+    console.log('node.' + id + ': ' + oldVal + ' => ' + newVal);
+    return newVal;
+});
+
+var spinner = '<i class="fa fa-circle-o-notch fa-2x fa-spin"></i>';
+$(function() {
+    $('#remove_bitcoin_address').click(function() {
+        $('#id_bitcoin_address').val('');
+        $(this).parent().submit();
+    });
+
+    $('#remove_bandwidth_limit').click(function() {
+        $('#id_max_uplink').val(0);
+        $(this).parent().submit();
+    });
+
+    $('input:radio[name="link_speed"]').change(function() {
+        var link_speed = $(this).val();
+        var downlink = Math.ceil(0.3 * link_speed);  // Set downlink speed to 30% of link speed
+        var uplink = Math.ceil(1 / 3 * downlink);  // Set uplink speed to 1/3 of downlink speed
+        $('#id_max_uplink').val(uplink);
+    });
+
+    $('#start_bitcoind, #stop_bitcoind').click(function(event) {
+        var command = $(this).val();
+        var context = {
+            csrfmiddlewaretoken: getCookie('csrftoken'),
+            command: command
+        };
+        var jqxhr = $.post("{% url 'start_stop_bitcoind' %}", context, function(data) {
+            $('#overlay').fadeIn(200, 'linear', function() {
+                $('#overlay > .message').html(data + spinner);
+            });
+        }).fail(function() {
+            console.log(jqxhr.status + ': ' + jqxhr.responseText);
+        });
+    });
+
+    $('#restart, #shutdown').click(function(event) {
+        var method = $(this).val();
+        var context = {
+            csrfmiddlewaretoken: getCookie('csrftoken'),
+            method: method
+        };
+        var jqxhr = $.post("{% url 'shutdown' %}", context, function(data) {
+            node.system_shutdown = data;
+            $('#overlay').fadeIn(200, 'linear', function() {
+                $('#overlay > .message').html(data + spinner);
+            });
+            if (method === '-h') {
+                setTimeout(function() {
+                    $('#overlay > .message').html('Your system has been powered off. Unplug and plug in the power cord to start your system.');
+                    $('#overlay').addClass('dark');
+                }, 60000);  // 60 seconds to shutdown
+            } else {
+                setTimeout(function() {
+                    $('#overlay > .message').html('');
+                    $('#overlay').fadeOut(500, 'linear', function() {
+                        window.location.reload(true);
+                    });
+                }, 90000);  // 90 seconds to restart
+            }
+        }).fail(function() {
+            console.log(jqxhr.status + ': ' + jqxhr.responseText);
+        });
+    });
+
+    (function systemInfo() {
+        $.ajax({
+            url: "{% url 'system_info' %}",
+            context: $('#system-info'),
+            success: function(data) {
+                $(this).html(data);
+            },
+            error: function(jqXHR) {
+                if (!node.system_shutdown) {
+                    $('#overlay').fadeIn(200, 'linear', function() {
+                        $('#overlay > .message').html('Error while fetching system info. Try reloading this page.');
+                    });
+                } else {
+                    console.log(node.system_shutdown);
+                }
+            },
+            complete: function(jqXHR) {
+                if (jqXHR.statusText === 'error')
+                    return;
+                setTimeout(systemInfo, 60000);  // 1 minute
+            }
+        });
+    })();
+});
+</script>
+{% endblock %}

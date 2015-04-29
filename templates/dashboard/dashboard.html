@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}{% if request.private %}Dashboard{% else %}Public Status Page{% endif %} - {% endblock %}
+
+{% block content %}
+<h3 class="page-header">{% if request.private %}DASHBOARD{% else %}BITNODES HARDWARE{% endif %}</h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-left">
+            <h1 class="blocks"></h1>
+            <span class="text-muted">Blocks</span>
+        </div>
+        <div class="pull-left">
+            <div class="pipe"></div>
+        </div>
+        <div class="pull-left">
+            <h1 class="connections"></h1>
+            <span class="text-muted">Connections</span>
+        </div>
+    </div>
+</div>
+<hr>
+
+{% if request.bitcoin_address.bitcoin_address %}
+<p>
+    <span class="text-muted">Bitcoin address: </span>
+    <a href="https://blockchain.info/address/{{ request.bitcoin_address.bitcoin_address }}" target="_blank">{{ request.bitcoin_address.bitcoin_address }}</a>
+</p>
+<hr>
+{% endif %}
+
+<h4>Sent<span class="pull-right text-muted"><span class="sent_kbps"></span><i class="fa fa-upload"></i></span></h4>
+<div class="chart">
+    <div id="sent-kbps-chart"></div>
+</div>
+
+<hr>
+
+<h4>Received<span class="pull-right text-muted"><span class="recv_kbps"></span><i class="fa fa-download"></i></span></h4>
+<div class="chart">
+    <div id="recv-kbps-chart"></div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script src="{% static 'js/highcharts.js' %}"></script>
+<script src="{% static 'js/highcharts-theme.js' %}"></script>
+<script>
+var sentKbpsSeries;
+var recvKbpsSeries;
+
+var ws;
+var wsTimer;
+var wsAttempts = 1;
+
+function connect(url) {
+    console.log('Connecting to ' + url);
+    ws = new WebSocket(url);
+    ws.onopen = onopen;
+    ws.onclose = onclose;
+    ws.onmessage = onmessage;
+    wsTimer = null;
+}
+
+function onopen() {
+    console.log('Connected to ' + ws.url);
+    wsAttempts = 1;
+}
+
+function onclose(event) {
+    console.log('Disconnected from ' + ws.url);
+    if (!wsTimer) {
+        var interval = generateInterval(wsAttempts);
+        console.log('Reconnecting in ' + Math.floor(interval) + ' ms');
+        wsTimer = setTimeout(function() {
+            wsAttempts++;
+            connect(ws.url);
+        }, interval);
+    }
+}
+
+function generateInterval(k) {
+    var maxInterval = (Math.pow(2, k) - 1) * 1000;
+    if (maxInterval > 30 * 1000)
+        maxInterval = 30 * 1000;
+    return Math.random() * maxInterval;
+}
+
+function onmessage(event) {
+    var data = JSON.parse(event.data);
+    var data_len = data.length;
+
+    var redraw = true;
+    if (data_len > 1)
+        redraw = false;
+    var animate = false;
+
+    for (var i = 0; i < data_len; i++) {
+        var timestamp = data[i].timestamp;
+        var sent_kbps = data[i].network.sent_bps / 1000;
+        var recv_kbps = data[i].network.recv_bps / 1000;
+
+        sentKbpsSeries.addPoint(
+            [timestamp, sent_kbps],
+            redraw,
+            sentKbpsSeries.data.length > 180,  // Shift
+            animate
+        );
+
+        recvKbpsSeries.addPoint(
+            [timestamp, recv_kbps],
+            redraw,
+            recvKbpsSeries.data.length > 180,  // Shift
+            animate
+        );
+
+        $('.sent_kbps').html(sent_kbps + ' kbps ');
+        $('.recv_kbps').html(recv_kbps + ' kbps ');
+    }
+
+    if (!redraw) {
+        sentKbpsSeries.chart.redraw();
+        recvKbpsSeries.chart.redraw();
+    }
+}
+
+var xAxis = {
+    type: 'datetime',
+    labels: {
+        format: '{value:%H:%M}'
+    }
+};
+
+var yAxis = {
+    title: {
+        text: null
+    },
+    labels: {
+        format: '{value} kbps'
+    },
+    floor: 0,
+    allowDecimals: false
+};
+
+var tooltip = {
+    xDateFormat: '%H:%M:%S',
+    useHTML: true,
+    headerFormat: '<div style="padding-bottom:.3em">{point.key}</div><table>',
+    pointFormat: '<tr style="border-top:1px solid #eee"><td style="padding:.3em 0; padding-right:1em"><span style="color:{series.color}">\u25CF</span> {series.name}</td><td style="padding:.3em 0; text-align:right">{point.y} kbps</td></tr>',
+    footerFormat: '</table>',
+    followPointer: true,
+    shared: true,
+    crosshairs: [true]
+};
+
+var plotOptions = {
+    line: {
+        animation: false,
+        lineWidth: 1,
+        marker: {
+            enabled: false
+        },
+        states: {
+            hover: {
+                enabled: false
+            }
+        }
+    }
+};
+
+var legend = {
+    enabled: false
+};
+
+$('#sent-kbps-chart').highcharts({
+    colors: ['#3a4966'],
+    chart: {
+        animation: false,
+        events: {
+            load: function() {
+                sentKbpsSeries = this.series[0];
+            }
+        }
+    },
+    xAxis: xAxis,
+    yAxis: yAxis,
+    tooltip: tooltip,
+    plotOptions: plotOptions,
+    legend: legend,
+    series: [
+        {
+            'name': 'Sent',
+            data: []
+        }
+    ]
+});
+
+$('#recv-kbps-chart').highcharts({
+    colors: ['#3a4966'],
+    chart: {
+        animation: false,
+        events: {
+            load: function() {
+                recvKbpsSeries = this.series[0];
+            }
+        }
+    },
+    xAxis: xAxis,
+    yAxis: yAxis,
+    tooltip: tooltip,
+    plotOptions: plotOptions,
+    legend: legend,
+    series: [
+        {
+            'name': 'Received',
+            data: []
+        }
+    ]
+});
+
+connect('{{ websocket_url }}/poll');
+</script>
+{% endblock %}

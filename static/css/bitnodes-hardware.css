@@ -1,0 +1,242 @@
+/*
+ * Copyright (c) Addy Yeow Chin Heng <ayeowch@gmail.com>
+ * Licensed under MIT (https://github.com/ayeowch/hardware/blob/master/LICENSE)
+ */
+
+@font-face {
+    font-family: 'Play';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Play'), url(/static/fonts/IkErdnKw9ItVkLeeur9GHfesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+
+body {
+    background: #fff;
+    color: #333;
+    font-family: 'Play', sans-serif;
+    font-size: 1.2em;
+    padding-top: 50px;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 2.4em;
+    min-height: 1em;
+}
+h3 {
+    padding: 0;
+    margin: 0;
+    font-size: 1.1em;
+    text-transform: uppercase;
+}
+h4 {
+    font-size: 1.1em;
+}
+
+.separator {
+    color: #ddd;
+    margin: 0 .5em;
+}
+
+a {
+    color: #337ab7;
+}
+    a:hover {
+        color: #2c3e50;
+    }
+
+.navbar-fixed-top {
+    border: 0;
+}
+.navbar-inverse {
+    background: #2c3e50;
+    border-color: #2c3e50;
+}
+    .navbar-inverse .navbar-nav > li > a {
+        color: #eee;
+    }
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: #fff;
+        text-shadow: 0 0 5px #999;
+    }
+    .navbar-inverse .navbar-toggle {
+        border-color: #2c3e50;
+    }
+        .navbar-inverse .navbar-toggle:focus,
+        .navbar-inverse .navbar-toggle:hover {
+            background: #3c4e70;
+        }
+.navbar-brand {
+    text-indent: -9999px;
+    line-height: 0;
+}
+    .navbar-brand > img {
+        max-height: 20px;
+    }
+
+.sidebar {
+    display: none;
+}
+@media screen and (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+}
+    #bitnodes-hardware {
+        background: url(/static/img/bitnodes-hardware.png) no-repeat;
+        background-size: contain;
+        width: 125px;
+        height: 30px;
+        display: block;
+        text-indent: -9999px;
+        margin-bottom: 3px;
+        overflow: hidden;
+    }
+    .sidebar hr {
+        border-top: 1px solid #ddd;
+    }
+
+.main {
+    padding: 20px;
+}
+@media screen and (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+    .main .page-header {
+        margin-top: 0;
+    }
+
+.btn:focus,
+.btn:active,
+.btn:active:focus {
+    outline: none;
+}
+.btn-primary {
+    text-shadow: 0 0 5px #999;
+    background: #3c4e70;
+    border: 1px solid #2c3e50;
+}
+    .btn-primary:hover {
+        border: 1px solid #2c3e50;
+    }
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-primary:active:focus {
+        background: #2c3e50;
+        border: 1px solid #2c3e50;
+    }
+    .btn-primary[disabled],
+    .btn-primary[disabled]:hover {
+        text-shadow: none;
+        background: #fff;
+        border: 1px solid #ddd;
+        color: #ddd;
+        opacity: 1;
+    }
+    .input-group-btn:last-child > .btn {
+        margin-left: 0;
+    }
+    .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {
+        border-right: 0;
+    }
+    .btn-group > .btn:hover,
+    .btn-group > .btn:active,
+    .btn-group > .btn:focus,
+    .btn-group > .btn:active:focus {
+        z-index: 0;
+    }
+
+.table.no-border {
+    margin-bottom: 0;
+}
+    .table.no-border tr th,
+    .table.no-border tr td {
+        border: 0;
+    }
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background: #f9fbfc;
+}
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+    background: #f0f4f6;
+}
+
+.input-group > .input-group-addon:first-child {
+    width: 8em;
+}
+
+.pipe {
+    border-left: 1px solid #eee;
+    width: 1px;
+    height: 4em;
+    margin: 0 2.4em;
+}
+.chart > div {
+    max-width: 1280px;
+    height: 150px;
+}
+
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    background: rgba(0, 0, 0, .9);
+    z-index: 2000;
+    display: none;
+}
+    #overlay > .message {
+        color: #fff;
+        position: relative;
+        top: 45%;
+        font-size: 1.1em;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    #overlay.dark {
+        background: rgba(0, 0, 0, 1);
+    }
+
+.label {
+    font-size: 1em;
+    font-weight: normal;
+}
+    .label-default {
+        color: #fff;
+        background: #3c4e70;
+    }
+
+.storage {
+    width: 100%;
+}
+    .storage-spacer {
+        height: 10px;
+    }
+    .progress {
+        margin-bottom: 0;
+    }
+        .progress-bar {
+            background: #3c4e70;
+        }
+
+.fa-spin {
+    display: block;
+    margin-top: 3px;
+}
