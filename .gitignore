@@ -8,3 +8,4 @@
 /public/
 celerybeat-schedule*
 db.sqlite3
+deploy.sh
