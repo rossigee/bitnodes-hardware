@@ -20,9 +20,24 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-from django.conf.urls import url
-from . import views
+from django.core.urlresolvers import reverse
+from django.test import TestCase, Client
 
-urlpatterns = [
-    url(r'^v1/node-status/$', views.node_status, name='node-status'),
-]
+
+class TestEndpoints(TestCase):
+    def test_node_status(self):
+        client = Client()
+        response = client.get(reverse('node-status'))
+        self.assertEqual(response.status_code, 200)
+        self.assertListEqual(
+            response.data.keys(),
+            [
+                'blocks',
+                'lan_address',
+                'wan_address',
+                'connections',
+                'user_agent',
+                'bitcoind_running',
+                'protocol_version',
+            ]
+        )
