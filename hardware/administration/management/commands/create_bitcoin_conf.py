@@ -41,6 +41,8 @@ def create_bitcoin_conf():
         make_bitcoin_dirs()
     context = {
         'datadir': settings.BITCOIN_DIR,
+        'port': str(settings.BITCOIN_PORT),
+        'maxconnections': str(settings.BITCOIN_MAX_CONNECTIONS),
         'rpcbind': settings.RPC_HOST,
         'rpcallowip': settings.RPC_HOST,
         'rpcport': str(settings.RPC_PORT),

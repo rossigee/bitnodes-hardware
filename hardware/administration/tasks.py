@@ -50,6 +50,7 @@ def bandwidth_task():
     command = [
         '/bin/bash', os.path.join(settings.BASE_DIR, 'bandwidth_control.sh'),
         '-i', settings.NETWORK_INTERFACE,
+        '-p', settings.BITCOIN_PORT,
         '-u', str(bandwidth.max_uplink),
     ]
     logger.debug('command: %s', command)

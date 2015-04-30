@@ -28,7 +28,7 @@ usage()
 Set uplink and downlink bandwidth limit for a network interface. This script is
 supported only on Linux as it uses tc and iptables.
 
-Usage: $0 [-h] [-i <iface>] [-l <linkspeed>] [-u <up>] [-d <down] [-s]
+Usage: $0 [-h] [-i <iface>] [-l <linkspeed>] [-p <port>] [-u <up>] [-d <down] [-s]
 
 -h
     Print usage.
@@ -38,6 +38,9 @@ Usage: $0 [-h] [-i <iface>] [-l <linkspeed>] [-u <up>] [-d <down] [-s]
 
 -l <linkspeed>
     Provisioned link speed in kbps.
+
+-p <port>
+    Listening port for Bitcoin client.
 
 -u <up>
     Uplink bandwidth limit in kbps. Set to 0 to remove limit (default).
@@ -134,6 +137,13 @@ then
 fi
 echo "linkspeed = ${linkspeed}"
 
+# Set default port to 8333
+if [ -z ${port} ]
+then
+    port=8333
+fi
+echo "port = ${port}"
+
 # Delete existing qdiscs to remove bandwidth limit
 sudo ${tc} qdisc del dev ${iface} root
 sudo ${tc} qdisc del dev ${iface} ingress
@@ -194,11 +204,11 @@ fi
 
 # Mark incoming Bitcoin client packets to go to class 1:20
 sudo ${iptables} -t mangle -A OUTPUT \
-    -p tcp -m tcp --dport 8333 -j MARK --set-mark 0x2
+    -p tcp -m tcp --dport ${port} -j MARK --set-mark 0x2
 
 # Mark outgoing Bitcoin client packets to go to class 1:20
 sudo ${iptables} -t mangle -A OUTPUT \
-    -p tcp -m tcp --sport 8333 -j MARK --set-mark 0x2
+    -p tcp -m tcp --sport ${port} -j MARK --set-mark 0x2
 
 ### Status ####################################################################
 
