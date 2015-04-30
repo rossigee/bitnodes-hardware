@@ -1,4 +1,5 @@
-# Bitnodes Hardware
+![Bitnodes Hardware](static/img/bitnodes-hardware.png?raw=true "Bitnodes Hardware")
+
 Thank you for purchasing Bitnodes Hardware!
 
 The Bitnodes Hardware is an easy-to-use device that allows you to participate in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.

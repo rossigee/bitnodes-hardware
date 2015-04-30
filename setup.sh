@@ -83,8 +83,8 @@ pip install -r requirements.txt
 # Create a new bitcoin.conf with random RPC username and password
 if [ ${debug} -eq 0 ]
 then
-    rm -vrf .bitcoin
-    rm -vrf /media/data/.bitcoin
+    rm -vf .bitcoin/bitcoin.conf
+    rm -vf /media/data/.bitcoin/bitcoin.conf
 fi
 ./manage.py create_bitcoin_conf
 
