@@ -1,4 +1,4 @@
-![Bitnodes Hardware](static/img/bitnodes-hardware.png?raw=true "Bitnodes Hardware")
+![Bitnodes Hardware](https://getaddr.bitnodes.io/static/img/bitnodes-hardware-github.png "Bitnodes Hardware")
 
 Thank you for purchasing Bitnodes Hardware!
 
