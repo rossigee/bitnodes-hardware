@@ -65,7 +65,7 @@ EOF
 
 status=0
 
-while getopts ":i:l:u:d:s" opt
+while getopts ":i:l:p:u:d:s" opt
 do
     case "$opt" in
         h)
@@ -77,6 +77,9 @@ do
             ;;
         l)
             linkspeed=${OPTARG}
+            ;;
+        p)
+            port=${OPTARG}
             ;;
         u)
             up=${OPTARG}
