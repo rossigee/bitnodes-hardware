@@ -20,17 +20,17 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-from django.core.urlresolvers import reverse
-from django.test import TestCase, Client
+from django.core.cache import cache
+from django.test import TestCase
+from hardware.api.tasks import node_status_task
 
 
-class TestEndpoints(TestCase):
-    def test_node_status(self):
-        client = Client()
-        response = client.get(reverse('node-status'))
-        self.assertEqual(response.status_code, 200)
+class TestTasks(TestCase):
+    def test_node_status_task(self):
+        node_status_task()
+        node_status = cache.get('node_status')
         self.assertListEqual(
-            response.data.keys(),
+            node_status.keys(),
             [
                 'blocks',
                 'lan_address',

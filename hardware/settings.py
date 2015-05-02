@@ -129,6 +129,8 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public')
+if not os.path.isdir(STATIC_ROOT):
+    os.makedirs(STATIC_ROOT)
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
@@ -164,6 +166,11 @@ CELERYBEAT_SCHEDULE = {
     'system-info-task': {
         'task': 'hardware.administration.tasks.system_info_task',
         'schedule': timedelta(minutes=15),
+        'relative': True,
+    },
+    'node-status-task': {
+        'task': 'hardware.api.tasks.node_status_task',
+        'schedule': timedelta(seconds=5),
         'relative': True,
     },
 }

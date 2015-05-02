@@ -20,13 +20,42 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+import logging
 
 from django.core.cache import cache
+from hardware.celery import app
+from hardware.rpc import RpcError, rpc
+from hardware.utils import get_lan_address, get_wan_address
+
+logger = logging.getLogger(__name__)
 
 
-@api_view(['GET'])
-def node_status(request):
-    context = cache.get('node_status')
-    return Response(context)
+@app.task
+def node_status_task():
+    network_info = {}
+    try:
+        network_info = rpc('getnetworkinfo')
+    except RpcError as err:
+        logger.debug(err)
+
+    block_count = None
+    try:
+        block_count = rpc('getblockcount')
+    except RpcError as err:
+        logger.debug(err)
+
+    bitcoind_running = False
+    if network_info or block_count:
+        bitcoind_running = True
+
+    node_status = {
+        'bitcoind_running': bitcoind_running,
+        'lan_address': get_lan_address(),
+        'wan_address': get_wan_address(),
+        'user_agent': network_info.get('subversion', None),
+        'protocol_version': network_info.get('protocolversion', None),
+        'blocks': block_count,
+        'connections': network_info.get('connections', None),
+    }
+    logger.debug('node_status: %s', node_status)
+    cache.set('node_status', node_status, None)  # Persistent cache

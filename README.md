@@ -76,6 +76,11 @@ Add the following lines at the end of the file to allow normal user to restart t
     bitnodes ALL=NOPASSWD: /sbin/tc
     bitnodes ALL=NOPASSWD: /sbin/iptables
 
+Update the last line in the getty file for tty1 to allow normal user to login automatically at /dev/tty1 to allow the LCD to display the status of your Bitnodes Hardware.
+
+    $ sudo vi /etc/init/tty1.conf
+    exec /sbin/getty -8 38400 tty1 -a bitnodes
+
 Build and install Bitcoin client from source.
 
     $ cd
@@ -102,6 +107,10 @@ Add the following lines at the end of the file.
 
     export WORKON_HOME=$HOME/.virtualenvs
     source /usr/local/bin/virtualenvwrapper.sh
+    if [ `/usr/bin/tty` == "/dev/tty1" ]
+    then
+        /home/bitnodes/.virtualenvs/hardware/bin/python /home/bitnodes/hardware/lcd.py
+    fi
 
 Install Nginx for use as the front-end web server for the Django project.
 
