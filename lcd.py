@@ -87,7 +87,7 @@ class Display(object):
             self.screen.addstr(5, 15, str(connections), curses.color_pair(2))
 
             self.screen.refresh()
-            time.sleep(5)
+            time.sleep(10)
 
 
 def main():

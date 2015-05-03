@@ -8,14 +8,14 @@
     <div class="pull-right">
         <a href="{% url 'change_password' %}">Change password</a>
         <span class="separator">/</span>
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'logout' %}"><i class="fa fa-sign-out visible-xs-inline"></i><span class="hidden-xs">Logout</span></a>
     </div>
 </h3>
 
 {% include "messages.html" %}
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">BITCOIN CLIENT</div>
             <div class="panel-body">
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">BITCOIN ADDRESS</div>
             <div class="panel-body">
@@ -79,12 +79,12 @@
                         </div>
                     </div>
                     <p>
-                        <span>Use recommended value based on the best effort speed of your Internet connection:</span>
+                        <span>Use recommended value based on the speed of your Internet connection in Mbps:</span>
                         <div class="btn-group btn-group-sm" data-toggle="buttons">
-                            <label class="btn btn-default{% if request.bandwidth.link_speed == 1500 %} active{% endif %}"><input type="radio" name="link_speed" value="1500" autocomplete="off"{% if request.bandwidth.link_speed == 1500 %} checked{% endif %}> 1.5 Mbps</label>
-                            <label class="btn btn-default{% if request.bandwidth.link_speed == 25000 %} active{% endif %}"><input type="radio" name="link_speed" value="25000" autocomplete="off"{% if request.bandwidth.link_speed == 25000 %} checked{% endif %}> 25 Mbps</label>
-                            <label class="btn btn-default{% if request.bandwidth.link_speed == 50000 %} active{% endif %}"><input type="radio" name="link_speed" value="50000" autocomplete="off"{% if request.bandwidth.link_speed == 50000 %} checked{% endif %}> 50 Mbps</label>
-                            <label class="btn btn-default{% if request.bandwidth.link_speed == 100000 %} active{% endif %}"><input type="radio" name="link_speed" value="100000" autocomplete="off"{% if request.bandwidth.link_speed == 100000 %} checked{% endif %}> 100 Mbps</label>
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 1500 %} active{% endif %}"><input type="radio" name="link_speed" value="1500" autocomplete="off"{% if request.bandwidth.link_speed == 1500 %} checked{% endif %}> 1.5</label>
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 25000 %} active{% endif %}"><input type="radio" name="link_speed" value="25000" autocomplete="off"{% if request.bandwidth.link_speed == 25000 %} checked{% endif %}> 25</label>
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 50000 %} active{% endif %}"><input type="radio" name="link_speed" value="50000" autocomplete="off"{% if request.bandwidth.link_speed == 50000 %} checked{% endif %}> 50</label>
+                            <label class="btn btn-default{% if request.bandwidth.link_speed == 100000 %} active{% endif %}"><input type="radio" name="link_speed" value="100000" autocomplete="off"{% if request.bandwidth.link_speed == 100000 %} checked{% endif %}> 100</label>
                         </div>
                     </p>
                     <button type="submit" class="btn btn-primary btn-sm">SAVE</button>
