@@ -64,7 +64,6 @@ INSTALLED_APPS = (
     'djsupervisor',
     'rest_framework',
     'djcelery',
-    'kombu.transport.django',  # Django database transport for Celery
     'debug_toolbar',
     'hardware.administration',
     'hardware.api',
@@ -108,6 +107,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'OPTIONS': {
+            'timeout': 60,
+        },
     }
 }
 
@@ -157,7 +159,7 @@ SUPERVISOR = {
     },
 }
 
-BROKER_URL = 'django://'
+BROKER_URL = 'redis://127.0.0.1:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_IGNORE_RESULT = True
 CELERY_TASK_SERIALIZER = 'json'
@@ -170,7 +172,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'node-status-task': {
         'task': 'hardware.api.tasks.node_status_task',
-        'schedule': timedelta(seconds=5),
+        'schedule': timedelta(seconds=10),
         'relative': True,
     },
 }

@@ -9,7 +9,7 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
 1. 1GB DDR3 SDRAM
 1. Hardware RNG
 1. 8GB eMMC for Operating System
-1. 64GB Micro SD UHS-1 Class 10 for User Data
+1. 128GB Micro SD UHS-1 Class 10 for User Data
 1. 3.2-inch TFT LCD
 1. Gigabit Ethernet (CAT6 cable included)
 1. 5V 2A DC Input (APAC/AU/EU/US/ compatible)
@@ -34,6 +34,16 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
 1. Click **CHANGE PASSWORD** to change your password now.
 1. Your Bitnodes Hardware will take a couple hours to sync up with the latest blocks from the network.
 1. Once synced, your Bitnodes Hardware will start to verify and relay new transactions and blocks.
+
+## Security Features
+1. Minimal base system.
+1. Security updates are applied automatically.
+1. Root password disabled.
+1. Administration interface is accessible only from private networks.
+1. Hardware RNG enabled to increase system entropy for use by /dev/random which is used to generate:
+    1. Secret key for Django project
+    1. RPC password for Bitcoin client
+1. Bitcoin client compiled without wallet support to ensure it operates only as a full node.
 
 ## Port Forwarding
 Port forwarding must be configured on your router to allow incoming connections to your Bitnodes Hardware. Look for **Port Forwarding** page or similar in your router administration page and add the entries as shown in the table below.
@@ -64,7 +74,7 @@ Update your system and install required packages.
 
     $ sudo apt-get update
     $ sudo apt-get -y upgrade
-    $ sudo apt-get -y install autoconf build-essential git-core libboost-all-dev libssl-dev libtool pkg-config python-dev
+    $ sudo apt-get -y install autoconf build-essential git-core libboost-all-dev libssl-dev libtool pkg-config python-dev redis-server
 
 Update sudoers file to allow normal user to execute certain privileged commands without password prompt.
 
