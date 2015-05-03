@@ -30,6 +30,19 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
     * Set or unset bandwidth limit for Bitcoin client.
 * Public status page with real-time stats for your Bitnodes Hardware.
 
+### Screenshots
+#### Dashboard
+![Dashboard](https://getaddr.bitnodes.io/static/img/screenshots/1-dashboard.png "Dashboard")
+
+#### Node Status
+![Node Status](https://getaddr.bitnodes.io/static/img/screenshots/2-node-status.png "Node Status")
+
+#### System Status
+![System Status](https://getaddr.bitnodes.io/static/img/screenshots/3-system-status.png "System Status")
+
+#### Bandwidth Limit
+![Bandwidth Limit](https://getaddr.bitnodes.io/static/img/screenshots/4-bandwidth-limit.png "Bandwidth Limit")
+
 ## Security Features
 * Minimal base system.
 * Security updates are applied automatically.
