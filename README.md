@@ -5,30 +5,40 @@ Thank you for purchasing Bitnodes Hardware!
 The Bitnodes Hardware is an easy-to-use device that allows you to participate in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.
 
 ## Hardware Features
-1. Amlogic Quad-Core ARM Cortex-A5 1.5GHz CPU
-1. Quad-Core ARM Mali-450 MP GPU OpenGL ES 2.0 600MHz
-1. 1GB DDR3 SDRAM
-1. Hardware RNG
-1. Toshiba 8GB eMMC NAND Flash Memory for Operating System
-1. Samsung MicroSDXC 128GB EVO Memory Card UHS-1 Class 10 for User Data
-1. 3.2-inch TFT LCD
-1. Gigabit Ethernet (CAT6 cable included)
-1. 4 x USB 2.0
-1. 1 x Micro USB OTG
-1. 1 x Micro HDMI
-1. Serial Console Port (UART)
-1. IR Receiver
-1. 5V 2A DC Input (APAC/AU/EU/US/ compatible)
-1. Bitnodes Hardware Clear Acrylic Case
+* Amlogic Quad-Core ARM Cortex-A5 1.5GHz CPU
+* Quad-Core ARM Mali-450 MP GPU OpenGL ES 2.0 600MHz
+* 1GB DDR3 SDRAM
+* Hardware RNG
+* Toshiba 8GB eMMC NAND Flash Memory for Operating System
+* Samsung MicroSDXC 128GB EVO Memory Card UHS-1 Class 10 for User Data
+* 3.2-inch TFT LCD
+* Gigabit Ethernet (CAT6 cable included)
+* 4 x USB 2.0
+* 1 x Micro USB OTG
+* 1 x Micro HDMI
+* Serial Console Port (UART)
+* IR Receiver
+* 5V 2A DC Input (APAC/AU/EU/US/ compatible)
+* Bitnodes Hardware Clear Acrylic Case
 
 ## Software Features
-1. Powered by the latest version of Ubuntu operating system.
-1. Latest version of Bitcoin client synced up to the latest block prior to dispatch.
-1. Built-in open source web-based administration interface:
+* Powered by the latest version of Ubuntu operating system.
+* Latest version of Bitcoin client synced up to the latest block prior to dispatch.
+* Built-in open source web-based administration interface:
     * Start or stop Bitcoin client.
     * Restart or shutdown your Bitnodes Hardware.
     * Set or unset bandwidth limit for Bitcoin client.
-1. Public status page with real-time stats for your Bitnodes Hardware.
+* Public status page with real-time stats for your Bitnodes Hardware.
+
+## Security Features
+* Minimal base system.
+* Security updates are applied automatically.
+* Root password disabled.
+* Administration interface is accessible only from private networks.
+* Hardware RNG enabled to increase system entropy for use by /dev/random which is used to generate:
+    * Secret key for Django project
+    * RPC password for Bitcoin client
+* Bitcoin client compiled without wallet support to ensure it operates only as a full node.
 
 ## Quickstart
 1. Unpack your Bitnodes Hardware.
@@ -40,16 +50,6 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
 1. Click **CHANGE PASSWORD** to change your password now.
 1. Your Bitnodes Hardware will take a couple hours to sync up with the latest blocks from the network.
 1. Once synced, your Bitnodes Hardware will start to verify and relay new transactions and blocks.
-
-## Security Features
-1. Minimal base system.
-1. Security updates are applied automatically.
-1. Root password disabled.
-1. Administration interface is accessible only from private networks.
-1. Hardware RNG enabled to increase system entropy for use by /dev/random which is used to generate:
-    1. Secret key for Django project
-    1. RPC password for Bitcoin client
-1. Bitcoin client compiled without wallet support to ensure it operates only as a full node.
 
 ## Port Forwarding
 Port forwarding must be configured on your router to allow incoming connections to your Bitnodes Hardware. Look for **Port Forwarding** page or similar in your router administration page and add the entries as shown in the table below.
