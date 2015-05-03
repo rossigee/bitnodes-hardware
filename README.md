@@ -5,13 +5,19 @@ Thank you for purchasing Bitnodes Hardware!
 The Bitnodes Hardware is an easy-to-use device that allows you to participate in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.
 
 ## Hardware Features
-1. Amlogic quad-core ARM Cortex-A5 1.5GHz CPU
+1. Amlogic Quad-Core ARM Cortex-A5 1.5GHz CPU
+1. Quad-Core ARM Mali-450 MP GPU OpenGL ES 2.0 600MHz
 1. 1GB DDR3 SDRAM
 1. Hardware RNG
-1. 8GB eMMC for Operating System
-1. 128GB Micro SD UHS-1 Class 10 for User Data
+1. Toshiba 8GB eMMC NAND Flash Memory for Operating System
+1. Samsung MicroSDXC 128GB EVO Memory Card UHS-1 Class 10 for User Data
 1. 3.2-inch TFT LCD
 1. Gigabit Ethernet (CAT6 cable included)
+1. 4 x USB 2.0
+1. 1 x Micro USB OTG
+1. 1 x Micro HDMI
+1. Serial Console Port (UART)
+1. IR Receiver
 1. 5V 2A DC Input (APAC/AU/EU/US/ compatible)
 1. Bitnodes Hardware Clear Acrylic Case
 
