@@ -100,8 +100,8 @@ class NetworkStat(object):
             bytes_sent = data.bytes_sent
             bytes_recv = data.bytes_recv
 
-            self.sent_bps = max((bytes_sent - self.bytes_sent) / seconds, 0)
-            self.recv_bps = max((bytes_recv - self.bytes_recv) / seconds, 0)
+            self.sent_bps = max((bytes_sent - self.bytes_sent) / seconds, 0) * 8
+            self.recv_bps = max((bytes_recv - self.bytes_recv) / seconds, 0) * 8
 
             self.bytes_sent = bytes_sent
             self.bytes_recv = bytes_recv
