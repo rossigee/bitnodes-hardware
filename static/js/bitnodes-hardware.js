@@ -49,6 +49,7 @@ $(function() {
                 }
                 $('.lan-address').html(format(data.lan_address));
                 $('.wan-address').html(format(data.wan_address));
+                $('.port').html(format(data.port));
                 $('.user-agent').html(format(data.user_agent));
                 $('.protocol-version').html(format(data.protocol_version));
                 currBlocks = data.blocks;

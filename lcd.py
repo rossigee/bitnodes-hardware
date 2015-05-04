@@ -66,6 +66,7 @@ class Display(object):
             bitcoind_running = self.node_status.get('bitcoind_running', False)
             lan_address = self.node_status.get('lan_address', '') or ''
             wan_address = self.node_status.get('wan_address', '') or ''
+            port = self.node_status.get('port', '') or ''
             blocks = self.node_status.get('blocks', '') or ''
             connections = self.node_status.get('connections', '') or ''
 
@@ -80,11 +81,14 @@ class Display(object):
             self.screen.addstr(3, 3, 'WAN address')
             self.screen.addstr(3, 15, wan_address, curses.color_pair(2))
 
-            self.screen.addstr(4, 3, 'Blocks')
-            self.screen.addstr(4, 15, str(blocks), curses.color_pair(2))
+            self.screen.addstr(4, 3, 'Port')
+            self.screen.addstr(4, 15, str(port), curses.color_pair(2))
 
-            self.screen.addstr(5, 3, 'Connections')
-            self.screen.addstr(5, 15, str(connections), curses.color_pair(2))
+            self.screen.addstr(5, 3, 'Blocks')
+            self.screen.addstr(5, 15, str(blocks), curses.color_pair(2))
+
+            self.screen.addstr(6, 3, 'Connections')
+            self.screen.addstr(6, 15, str(connections), curses.color_pair(2))
 
             self.screen.refresh()
             time.sleep(10)

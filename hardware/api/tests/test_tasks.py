@@ -30,14 +30,15 @@ class TestTasks(TestCase):
         node_status_task()
         node_status = cache.get('node_status')
         self.assertListEqual(
-            node_status.keys(),
+            sorted(node_status.keys()),
             [
-                'blocks',
-                'lan_address',
-                'wan_address',
-                'connections',
-                'user_agent',
                 'bitcoind_running',
+                'blocks',
+                'connections',
+                'lan_address',
+                'port',
                 'protocol_version',
+                'user_agent',
+                'wan_address',
             ]
         )

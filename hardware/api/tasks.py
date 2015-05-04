@@ -22,6 +22,7 @@
 #
 import logging
 
+from django.conf import settings
 from django.core.cache import cache
 from hardware.celery import app
 from hardware.rpc import RpcError, rpc
@@ -52,6 +53,7 @@ def node_status_task():
         'bitcoind_running': bitcoind_running,
         'lan_address': get_lan_address(),
         'wan_address': get_wan_address(),
+        'port': settings.BITCOIN_PORT,
         'user_agent': network_info.get('subversion', None),
         'protocol_version': network_info.get('protocolversion', None),
         'blocks': block_count,
