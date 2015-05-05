@@ -32,16 +32,16 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
 
 ### Screenshots
 #### Dashboard
-![Dashboard](https://getaddr.bitnodes.io/static/img/screenshots/1-dashboard.png "Dashboard")
+![Dashboard](https://getaddr.bitnodes.io/static/img/screenshots/1-dashboard.png?v1 "Dashboard")
 
 #### Node Status
-![Node Status](https://getaddr.bitnodes.io/static/img/screenshots/2-node-status.png "Node Status")
+![Node Status](https://getaddr.bitnodes.io/static/img/screenshots/2-node-status.png?v1 "Node Status")
 
 #### System Status
-![System Status](https://getaddr.bitnodes.io/static/img/screenshots/3-system-status.png "System Status")
+![System Status](https://getaddr.bitnodes.io/static/img/screenshots/3-system-status.png?v1 "System Status")
 
 #### Bandwidth Limit
-![Bandwidth Limit](https://getaddr.bitnodes.io/static/img/screenshots/4-bandwidth-limit.png "Bandwidth Limit")
+![Bandwidth Limit](https://getaddr.bitnodes.io/static/img/screenshots/4-bandwidth-limit.png?v1 "Bandwidth Limit")
 
 ## Security Features
 * Minimal base system.
