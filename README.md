@@ -116,7 +116,6 @@ Build and install Bitcoin client from source.
     $ git clone https://github.com/bitcoin/bitcoin.git
     $ cd bitcoin
     $ git checkout v0.10.1
-    $ make clean
     $ ./autogen.sh
     $ ./configure --without-gui --without-miniupnpc --disable-wallet
     $ make
@@ -153,7 +152,7 @@ Install Supervisor to manage processes for the Django project.
 The project is currently supported on Linux and Mac OS X with Python 2.7.x. Clone the project into the home directory and run `setup.sh` to bootstrap the project.
 
     $ cd
-    $ git clone git@github.com:ayeowch/hardware.git
+    $ git clone https://github.com/ayeowch/hardware.git
     $ cd hardware
     $ source ~/.profile
     $ mkvirtualenv -a "$PWD" hardware

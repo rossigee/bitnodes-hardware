@@ -49,8 +49,8 @@ class Display(object):
         t.daemon = True
         t.start()
 
-        self.screen.addstr(1, 3, 'Bitnodes Hardware', curses.color_pair(1))
-        self.screen.addstr(1, 21, 'LOADING', curses.color_pair(3))
+        self.screen.addstr(1, 2, 'BITNODES HARDWARE', curses.color_pair(1))
+        self.screen.addstr(1, 20, 'LOADING', curses.color_pair(3))
         while True:
             event = self.screen.getch()
             if event == ord('q'):
@@ -71,24 +71,24 @@ class Display(object):
             connections = self.node_status.get('connections', '') or ''
 
             if bitcoind_running:
-                self.screen.addstr(1, 21, 'RUNNING', curses.color_pair(2))
+                self.screen.addstr(1, 20, 'RUNNING', curses.color_pair(2))
             else:
-                self.screen.addstr(1, 21, 'STOPPED', curses.color_pair(4))
+                self.screen.addstr(1, 20, 'STOPPED', curses.color_pair(4))
 
-            self.screen.addstr(2, 3, 'LAN address')
-            self.screen.addstr(2, 15, lan_address, curses.color_pair(2))
+            self.screen.addstr(3, 2, 'LAN address')
+            self.screen.addstr(3, 14, lan_address, curses.color_pair(2))
 
-            self.screen.addstr(3, 3, 'WAN address')
-            self.screen.addstr(3, 15, wan_address, curses.color_pair(2))
+            self.screen.addstr(4, 2, 'WAN address')
+            self.screen.addstr(4, 14, wan_address, curses.color_pair(2))
 
-            self.screen.addstr(4, 3, 'Port')
-            self.screen.addstr(4, 15, str(port), curses.color_pair(2))
+            self.screen.addstr(5, 2, 'Port')
+            self.screen.addstr(5, 14, str(port), curses.color_pair(2))
 
-            self.screen.addstr(5, 3, 'Blocks')
-            self.screen.addstr(5, 15, str(blocks), curses.color_pair(2))
+            self.screen.addstr(6, 2, 'Blocks')
+            self.screen.addstr(6, 14, str(blocks), curses.color_pair(2))
 
-            self.screen.addstr(6, 3, 'Connections')
-            self.screen.addstr(6, 15, str(connections), curses.color_pair(2))
+            self.screen.addstr(7, 2, 'Connections')
+            self.screen.addstr(7, 14, str(connections), curses.color_pair(2))
 
             self.screen.refresh()
             time.sleep(10)

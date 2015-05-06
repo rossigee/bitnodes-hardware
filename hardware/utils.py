@@ -37,7 +37,7 @@ def get_lan_address():
         for address in net_if_addrs().get(settings.NETWORK_INTERFACE):
             if address.family == AF_INET:
                 lan_address = address.address
-                cache.set('lan_address', lan_address, 1800)
+                cache.set('lan_address', lan_address, 600)
                 return lan_address
     return lan_address
 
@@ -56,5 +56,5 @@ def get_wan_address():
         else:
             if response.status_code == 200:
                 wan_address = response.json().get('ip')
-                cache.set('wan_address', wan_address, 1800)
+                cache.set('wan_address', wan_address, 600)
     return wan_address
