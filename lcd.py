@@ -39,18 +39,27 @@ class Display(object):
 
     def show(self, screen):
         self.screen = screen
+
         curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
+        self.white = curses.color_pair(1)
+
         curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+        self.green = curses.color_pair(2)
+
         curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+        self.yellow = curses.color_pair(3)
+
         curses.init_pair(4, curses.COLOR_RED, curses.COLOR_BLACK)
+        self.red = curses.color_pair(4)
+
         curses.curs_set(0)
 
         t = threading.Thread(target=self.update)
         t.daemon = True
         t.start()
 
-        self.screen.addstr(1, 2, 'BITNODES HARDWARE', curses.color_pair(1))
-        self.screen.addstr(1, 20, 'LOADING', curses.color_pair(3))
+        self.addstr(1, 1, 'BITNODES HARDWARE', self.white)
+        self.addstr(1, 19, 'LOADING', self.yellow)
         while True:
             event = self.screen.getch()
             if event == ord('q'):
@@ -64,34 +73,47 @@ class Display(object):
                 continue
 
             bitcoind_running = self.node_status.get('bitcoind_running', False)
-            lan_address = self.node_status.get('lan_address', '') or ''
-            wan_address = self.node_status.get('wan_address', '') or ''
-            port = self.node_status.get('port', '') or ''
-            blocks = self.node_status.get('blocks', '') or ''
-            connections = self.node_status.get('connections', '') or ''
+            lan_address = self.node_status.get('lan_address', '')
+            wan_address = self.node_status.get('wan_address', '')
+            port = self.node_status.get('port', '')
+            user_agent = self.node_status.get('user_agent', '')
+            blocks = self.node_status.get('blocks', '')
+            connections = self.node_status.get('connections', '')
 
             if bitcoind_running:
-                self.screen.addstr(1, 20, 'RUNNING', curses.color_pair(2))
+                self.addstr(1, 19, 'RUNNNING', self.green)
             else:
-                self.screen.addstr(1, 20, 'STOPPED', curses.color_pair(4))
+                self.addstr(1, 19, 'STOPPED', self.red)
 
-            self.screen.addstr(3, 2, 'LAN address')
-            self.screen.addstr(3, 14, lan_address, curses.color_pair(2))
+            self.addstr(3, 1, 'LAN address', self.white)
+            self.addstr(3, 13, lan_address, self.green, clr=True)
 
-            self.screen.addstr(4, 2, 'WAN address')
-            self.screen.addstr(4, 14, wan_address, curses.color_pair(2))
+            self.addstr(4, 1, 'WAN address', self.white)
+            self.addstr(4, 13, wan_address, self.green, clr=True)
 
-            self.screen.addstr(5, 2, 'Port')
-            self.screen.addstr(5, 14, str(port), curses.color_pair(2))
+            self.addstr(5, 1, 'Port', self.white)
+            self.addstr(5, 13, port, self.green, clr=True)
 
-            self.screen.addstr(6, 2, 'Blocks')
-            self.screen.addstr(6, 14, str(blocks), curses.color_pair(2))
+            self.addstr(6, 1, 'User agent', self.white)
+            self.addstr(6, 13, user_agent, self.green, clr=True)
 
-            self.screen.addstr(7, 2, 'Connections')
-            self.screen.addstr(7, 14, str(connections), curses.color_pair(2))
+            self.addstr(7, 1, 'Blocks', self.white)
+            self.addstr(7, 13, blocks, self.green, clr=True)
+
+            self.addstr(8, 1, 'Connections', self.white)
+            self.addstr(8, 13, connections, self.green, clr=True)
 
             self.screen.refresh()
             time.sleep(10)
+
+    def addstr(self, row, col, value, color, clr=False):
+        if value is None:
+            value = ''
+        value = str(value)
+        if clr:
+            self.screen.move(row, col)
+            self.screen.clrtoeol()
+        self.screen.addstr(row, col, value, color)
 
 
 def main():
