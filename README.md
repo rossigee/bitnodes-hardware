@@ -64,6 +64,8 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
 1. Your Bitnodes Hardware will take a couple hours to sync up with the latest blocks from the network.
 1. Once synced, your Bitnodes Hardware will start to verify and relay new transactions and blocks.
 
+**WARNING: DO NOT UNPLUG THE POWER CORD FOR YOUR BITNODES HARDWARE BEFORE STOPPING THE BITCOIN CLIENT GRACEFULLY FROM THE ADMINISTRATION PAGE. FAILURE TO STOP BITCOIN CLIENT GRACEFULLY WILL RESULT IN DATABASE CORRUPTION WHICH WILL LIKELY REQUIRE FRESH DOWNLOAD OF THE ENTIRE BLOCKCHAIN FROM THE NETWORK.**
+
 ## Port Forwarding
 Port forwarding must be configured on your router to allow incoming connections to your Bitnodes Hardware. Look for **Port Forwarding** page or similar in your router administration page and add the entries as shown in the table below.
 
@@ -215,7 +217,7 @@ Execute the following command to monitor all log files written by the project in
     $ tail -f *.log /tmp/*.log
 
 ### Rebuild System
-WARNING: THIS WILL REMOVE THE OPERATING SYSTEM, ALL APPLICATIONS AND THEIR ASSOCIATED DATA ON THE PRIMARY DISK (eMMC) OF YOUR BITNODES HARDWARE. YOU SHOULD ONLY NEED TO REBUILD YOUR SYSTEM IF IT IS NO LONGER BOOTING UP OR YOU HAVE FORGOTTEN THE PASSWORD TO ACCESS YOUR BITNODES HARDWARE.
+**WARNING: THIS WILL REMOVE THE OPERATING SYSTEM, ALL APPLICATIONS AND THEIR ASSOCIATED DATA ON THE PRIMARY DISK (eMMC) OF YOUR BITNODES HARDWARE. YOU SHOULD ONLY NEED TO REBUILD YOUR SYSTEM IF IT IS NO LONGER BOOTING UP OR YOU HAVE FORGOTTEN THE PASSWORD TO ACCESS YOUR BITNODES HARDWARE.**
 
 If you wish to rebuild the system for your Bitnodes Hardware, you will need a Linux or Mac OS X host system and a Micro SD card reader to write a new image into the eMMC.
 
