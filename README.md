@@ -64,7 +64,7 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
 1. Your Bitnodes Hardware will take a couple hours to sync up with the latest blocks from the network.
 1. Once synced, your Bitnodes Hardware will start to verify and relay new transactions and blocks.
 
-**WARNING: DO NOT UNPLUG THE POWER CORD FOR YOUR BITNODES HARDWARE BEFORE STOPPING THE BITCOIN CLIENT GRACEFULLY FROM THE ADMINISTRATION PAGE. FAILURE TO STOP BITCOIN CLIENT GRACEFULLY WILL RESULT IN DATABASE CORRUPTION WHICH WILL LIKELY REQUIRE FRESH DOWNLOAD OF THE ENTIRE BLOCKCHAIN FROM THE NETWORK.**
+**WARNING: DO NOT UNPLUG THE POWER CORD FOR YOUR BITNODES HARDWARE BEFORE STOPPING THE BITCOIN CLIENT GRACEFULLY FROM THE ADMINISTRATION PAGE. FAILURE TO STOP THE BITCOIN CLIENT GRACEFULLY WILL RESULT IN ITS DATABASE CORRUPTION WHICH WILL LIKELY REQUIRE FRESH DOWNLOAD OF THE ENTIRE BLOCKCHAIN.**
 
 ## Port Forwarding
 Port forwarding must be configured on your router to allow incoming connections to your Bitnodes Hardware. Look for **Port Forwarding** page or similar in your router administration page and add the entries as shown in the table below.
