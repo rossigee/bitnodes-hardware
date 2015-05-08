@@ -101,11 +101,12 @@ Update sudoers file to allow normal user to execute certain privileged commands 
 
     $ sudo visudo
 
-Add the following lines at the end of the file to allow normal user to restart the system and to configure bandwidth limit for the system. Note that tc and iptables are only available on Linux.
+Add the following lines at the end of the file to allow normal user to restart the system and to configure bandwidth limit for the system. Note that tc and iptables are only available on Linux. `console-setup` is required to allow normal user to reload the console setup, e.g. font size, prior to displaying output on the LCD.
 
     bitnodes ALL=NOPASSWD: /sbin/shutdown
     bitnodes ALL=NOPASSWD: /sbin/tc
     bitnodes ALL=NOPASSWD: /sbin/iptables
+    bitnodes ALL=NOPASSWD: /etc/init.d/console-setup
 
 Update the last line in the getty file for tty1 to allow normal user to login automatically at /dev/tty1 to allow the LCD to display the status of your Bitnodes Hardware.
 
@@ -139,6 +140,7 @@ Add the following lines at the end of the file.
     source /usr/local/bin/virtualenvwrapper.sh
     if [ `/usr/bin/tty` == "/dev/tty1" ]
     then
+        /usr/bin/sudo /etc/init.d/console-setup reload > /dev/null 2>&1
         /home/bitnodes/.virtualenvs/hardware/bin/python /home/bitnodes/hardware/lcd.py
     fi
 

@@ -81,9 +81,9 @@ class Display(object):
             connections = self.node_status.get('connections', '')
 
             if bitcoind_running:
-                self.addstr(1, 19, 'RUNNNING', self.green)
+                self.addstr(1, 19, 'RUNNING', self.green, clr=True)
             else:
-                self.addstr(1, 19, 'STOPPED', self.red)
+                self.addstr(1, 19, 'STOPPED', self.red, clr=True)
 
             self.addstr(3, 1, 'LAN address', self.white)
             self.addstr(3, 13, lan_address, self.green, clr=True)
