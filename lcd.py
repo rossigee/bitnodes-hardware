@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # Copyright (c) Addy Yeow Chin Heng <ayeowch@gmail.com>
 #
@@ -30,6 +31,17 @@ import threading
 import time
 
 from django.core.cache import cache
+
+
+def get_cpu_temp():
+    """
+    CPU temperature should be below 80°C for normal operation.
+    """
+    celcius = None
+    temp = '/sys/devices/virtual/thermal/thermal_zone0/temp'
+    if os.path.exists(temp):
+        celcius = int(open(temp).read().strip()) / 1000
+    return celcius
 
 
 class Display(object):
@@ -79,6 +91,7 @@ class Display(object):
             user_agent = self.node_status.get('user_agent', '')
             blocks = self.node_status.get('blocks', '')
             connections = self.node_status.get('connections', '')
+            cpu_temp = get_cpu_temp()
 
             if bitcoind_running:
                 self.addstr(1, 19, 'RUNNING', self.green, clr=True)
@@ -101,7 +114,17 @@ class Display(object):
             self.addstr(7, 13, blocks, self.green, clr=True)
 
             self.addstr(8, 1, 'Connections', self.white)
-            self.addstr(8, 13, connections, self.green, clr=True)
+            color = self.green
+            if connections and int(connections) <= 8:  # Not accepting incoming connections
+                color = self.red
+            self.addstr(8, 13, connections, color, clr=True)
+
+            self.addstr(10, 1, 'CPU temp', self.white)
+            color = self.green
+            if cpu_temp > 80:
+                color = self.red
+            cpu_temp = '%d°C' % cpu_temp
+            self.addstr(10, 13, cpu_temp, color, clr=True)
 
             self.screen.refresh()
             time.sleep(10)
