@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # Copyright (c) Addy Yeow Chin Heng <ayeowch@gmail.com>
 #
@@ -35,7 +34,7 @@ from django.core.cache import cache
 
 def get_cpu_temp():
     """
-    CPU temperature should be below 80°C for normal operation.
+    CPU temperature should be below 80C for normal operation.
     """
     celcius = None
     temp = '/sys/devices/virtual/thermal/thermal_zone0/temp'
@@ -123,7 +122,7 @@ class Display(object):
             color = self.green
             if cpu_temp > 80:
                 color = self.red
-            cpu_temp = '%d°C' % cpu_temp
+            cpu_temp = '%dC' % cpu_temp
             self.addstr(10, 13, cpu_temp, color, clr=True)
 
             self.screen.refresh()
