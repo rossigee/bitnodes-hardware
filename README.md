@@ -10,7 +10,7 @@ The Bitnodes Hardware is an easy-to-use device that allows you to participate in
 * 1GB DDR3 SDRAM
 * Hardware RNG
 * Toshiba 8GB eMMC NAND Flash Memory for Operating System
-* Samsung MicroSDXC 128GB EVO Memory Card UHS-1 Class 10 for User Data
+* Samsung MicroSDXC 64GB EVO Memory Card UHS-1 Class 10 for User Data
 * 3.2-inch TFT LCD
 * Gigabit Ethernet (CAT6 cable included)
 * 4 x USB 2.0
