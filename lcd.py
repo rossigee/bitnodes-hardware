@@ -113,17 +113,18 @@ class Display(object):
             self.addstr(7, 13, blocks, self.green, clr=True)
 
             self.addstr(8, 1, 'Connections', self.white)
-            color = self.green
-            if connections and int(connections) <= 8:  # Not accepting incoming connections
-                color = self.red
+            color = self.red
+            if connections and int(connections) > 8:
+                color = self.green
             self.addstr(8, 13, connections, color, clr=True)
 
-            self.addstr(10, 1, 'CPU temp', self.white)
-            color = self.green
-            if cpu_temp > 80:
+            if cpu_temp:
+                self.addstr(10, 1, 'CPU temp', self.white)
                 color = self.red
-            cpu_temp = '%dC' % cpu_temp
-            self.addstr(10, 13, cpu_temp, color, clr=True)
+                if cpu_temp <= 80:
+                    color = self.green
+                cpu_temp = '%dC' % cpu_temp
+                self.addstr(10, 13, cpu_temp, color, clr=True)
 
             self.screen.refresh()
             time.sleep(10)
