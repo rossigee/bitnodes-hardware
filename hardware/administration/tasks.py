@@ -62,6 +62,7 @@ def bandwidth_task():
 def start_stop_bitcoind_task(command):
     if not settings.DEBUG:
         program = '{}-bitcoind'.format(settings.SUPERVISOR['NAME'])
+        logger.debug('supervisor %s %s', command, program)
         management.call_command('supervisor', command, program)
 
 
@@ -69,8 +70,6 @@ def start_stop_bitcoind_task(command):
 def shutdown_task(method):
     # Stop bitcoind gracefully to avoid SIGKILL from shutdown command
     start_stop_bitcoind_task('stop')
-    time.sleep(20)
-
     command = [
         '/usr/bin/sudo',
         '/sbin/shutdown',
