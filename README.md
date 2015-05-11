@@ -2,7 +2,7 @@
 
 Thank you for purchasing Bitnodes Hardware!
 
-The Bitnodes Hardware is an easy-to-use device that allows you to participate in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.
+The Bitnodes Hardware is a quad-core single-board computer built and configured to operate as a dedicated Bitcoin full node. It puts you in full control of a node that plays a critical role in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.
 
 ## Hardware Features
 * Amlogic Quad-Core ARM Cortex-A5 1.5GHz CPU
