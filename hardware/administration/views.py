@@ -124,4 +124,5 @@ def shutdown(request):
     if method is None:
         return HttpResponse('Invalid shutdown method.', status=400)
     shutdown_task.delay(method)
-    return HttpResponse('System {} in progress.'.format(methods.get(method)))
+    return HttpResponse(
+        'System {} in progress. This can take a few minutes.'.format(methods.get(method)))

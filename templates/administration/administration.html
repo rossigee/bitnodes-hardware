@@ -162,17 +162,14 @@ $(function() {
                 $('#overlay > .message').html(data + spinner);
             });
             if (method === '-h') {
-                setTimeout(function() {
-                    $('#overlay > .message').html('Your system has been powered off. Unplug and plug in the power cord to start your system.');
-                    $('#overlay').addClass('dark');
-                }, 60000);  // 60 seconds to shutdown
+                // Delegated to systemInfo()
             } else {
                 setTimeout(function() {
                     $('#overlay > .message').html('');
                     $('#overlay').fadeOut(500, 'linear', function() {
                         window.location.reload(true);
                     });
-                }, 90000);  // 90 seconds to restart
+                }, 120000);  // 2 minutes to restart
             }
         }).fail(function() {
             console.log(jqxhr.status + ': ' + jqxhr.responseText);
@@ -183,6 +180,7 @@ $(function() {
         $.ajax({
             url: "{% url 'system_info' %}",
             context: $('#system-info'),
+            timeout: 5000,
             success: function(data) {
                 $(this).html(data);
             },
@@ -196,9 +194,14 @@ $(function() {
                 }
             },
             complete: function(jqXHR) {
-                if (jqXHR.statusText === 'error')
+                if (!node.system_shutdown && jqXHR.statusText === 'error')
                     return;
-                setTimeout(systemInfo, 60000);  // 1 minute
+                if (node.system_shutdown && jqXHR.statusText === 'timeout' && node.system_shutdown.toLowerCase().indexOf('shutdown') >= 0) {
+                    $('#overlay > .message').html('Your system has been powered off. Unplug and plug in the power cord to start your system.');
+                    $('#overlay').addClass('dark');
+                    return;
+                }
+                setTimeout(systemInfo, 30000);  // 30 seconds
             }
         });
     })();
