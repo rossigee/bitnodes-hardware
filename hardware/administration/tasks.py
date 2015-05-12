@@ -122,5 +122,6 @@ def system_info_task():
 
 @celeryd_init.connect
 def startup_task(sender=None, conf=None, **kwargs):
+    cache.clear()
     bandwidth_task()
     system_info_task()

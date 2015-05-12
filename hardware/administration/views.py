@@ -109,7 +109,7 @@ def start_stop_bitcoind(request):
         return HttpResponse('Invalid command.', status=400)
     start_stop_bitcoind_task.delay(command)
     return HttpResponse(
-        'Bitcoin client is {}. This can take a few minutes'.format(commands.get(command)))
+        'Bitcoin client is {}. This can take a few minutes.'.format(commands.get(command)))
 
 
 @user_passes_test(lambda u: u.is_superuser)
