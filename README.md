@@ -95,7 +95,23 @@ Update your system and install required packages.
 
     $ sudo apt-get update
     $ sudo apt-get -y upgrade
-    $ sudo apt-get -y install autoconf build-essential git-core libboost-all-dev libssl-dev libtool pkg-config python-dev redis-server
+    $ sudo apt-get -y install autoconf build-essential git-core libboost-all-dev libssl-dev libtool pkg-config python-dev redis-server postgresql postgresql-contrib libpq-dev
+
+Update PostgreSQL authentication file to allow localhost access without password prompt.
+
+    $ sudo vi /etc/postgresql/9.3/main/pg_hba.conf
+
+Replace the content of the file with the following.
+
+    # TYPE        DATABASE        USER        ADDRESS        METHOD
+    local         all             all                        trust
+    host          all             all         127.0.0.1/32   trust
+    host          all             all         ::1/128        trust
+
+Create a PostgreSQL user and database for use by the Django project.
+
+    $ sudo -u postgres createuser --superuser --echo bitnodes
+    $ createdb bitnodes
 
 Update sudoers file to allow normal user to execute certain privileged commands without password prompt.
 
@@ -141,6 +157,7 @@ Add the following lines at the end of the file.
     if [ `/usr/bin/tty` == "/dev/tty1" ]
     then
         /usr/bin/sudo /etc/init.d/console-setup reload > /dev/null 2>&1
+        sleep 15
         /home/bitnodes/.virtualenvs/hardware/bin/python /home/bitnodes/hardware/lcd.py
     fi
 

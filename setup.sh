@@ -39,6 +39,19 @@ Usage: $0 [-h] [-d]
 EOF
 }
 
+reboot()
+{
+    cat <<EOF
+
+Setup completed!
+
+A reboot might be good idea after setup on production system to make sure
+system's supervisor starts the project's supervisor which in turn starts the
+required processes for the project.
+
+EOF
+}
+
 debug=0
 
 while getopts ":d" opt
@@ -61,6 +74,11 @@ done
 find . -name '*.pyc' -exec rm -vf '{}' \; -print
 
 rm -vf *.log *.db db.sqlite3 .secret_key .debug
+if [ ${debug} -eq 0 ]
+then
+    dropdb --echo bitnodes
+    createdb --echo bitnodes
+fi
 
 if [ ${debug} -eq 1 ]
 then
@@ -91,10 +109,7 @@ fi
 ./manage.py makemigrations
 ./manage.py migrate
 
-# A reboot might be good idea after setup on production system to make sure
-# system's supervisor starts the project's supervisor which in turn starts the
-# required processes for the project.
 if [ ${debug} -eq 0 ]
 then
-    sudo /sbin/shutdown -r now
+    reboot
 fi
