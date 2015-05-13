@@ -157,7 +157,6 @@ Add the following lines at the end of the file.
     if [ `/usr/bin/tty` == "/dev/tty1" ]
     then
         /usr/bin/sudo /etc/init.d/console-setup reload > /dev/null 2>&1
-        sleep 15
         /home/bitnodes/.virtualenvs/hardware/bin/python /home/bitnodes/hardware/lcd.py
     fi
 
