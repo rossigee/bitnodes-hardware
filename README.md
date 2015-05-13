@@ -22,13 +22,23 @@ The Bitnodes Hardware is a quad-core single-board computer built and configured 
 * Bitnodes Hardware Clear Acrylic Case
 
 ## Software Features
-* Powered by the latest version of Ubuntu operating system.
-* Latest version of Bitcoin client synced up to the latest block prior to dispatch.
+* Powered by the latest version of Ubuntu operating system
+* Latest version of Bitcoin client synced up to the latest block prior to dispatch
 * Built-in open source web-based administration interface:
-    * Start or stop Bitcoin client.
-    * Restart or shutdown your Bitnodes Hardware.
-    * Set or unset bandwidth limit for Bitcoin client.
-* Public status page with real-time stats for your Bitnodes Hardware.
+    * Start or stop Bitcoin client
+    * Restart or shutdown your Bitnodes Hardware
+    * Set or unset bandwidth limit for Bitcoin client
+* Public status page with real-time stats for your Bitnodes Hardware
+
+## Security Features
+* Minimal base system
+* Security updates are applied automatically
+* Root password disabled
+* Administration interface is accessible only from private networks
+* Hardware RNG enabled to increase system entropy for use by /dev/random which is used to generate:
+    * Secret key for Django project
+    * RPC password for Bitcoin client
+* Bitcoin client compiled without wallet support to ensure it operates only as a full node
 
 ### Screenshots
 #### Dashboard
@@ -42,16 +52,6 @@ The Bitnodes Hardware is a quad-core single-board computer built and configured 
 
 #### Bandwidth Limit
 ![Bandwidth Limit](https://getaddr.bitnodes.io/static/img/screenshots/4-bandwidth-limit.png?v1 "Bandwidth Limit")
-
-## Security Features
-* Minimal base system.
-* Security updates are applied automatically.
-* Root password disabled.
-* Administration interface is accessible only from private networks.
-* Hardware RNG enabled to increase system entropy for use by /dev/random which is used to generate:
-    * Secret key for Django project
-    * RPC password for Bitcoin client
-* Bitcoin client compiled without wallet support to ensure it operates only as a full node.
 
 ## Quickstart
 1. Unpack your Bitnodes Hardware.
