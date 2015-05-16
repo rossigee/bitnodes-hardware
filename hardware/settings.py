@@ -176,8 +176,17 @@ CELERYBEAT_SCHEDULE = {
     },
     'node-status-task': {
         'task': 'hardware.api.tasks.node_status_task',
-        'schedule': timedelta(seconds=10),
+        'schedule': timedelta(seconds=15),
         'relative': True,
+    },
+}
+
+CELERY_ROUTES = {
+    'hardware.administration.tasks.system_info_task': {
+        'queue': 'low_prio',
+    },
+    'hardware.api.tasks.node_status_task': {
+        'queue': 'low_prio',
     },
 }
 

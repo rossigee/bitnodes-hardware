@@ -127,7 +127,7 @@ class Display(object):
                 self.addstr(10, 13, cpu_temp, color, clr=True)
 
             self.screen.refresh()
-            time.sleep(10)
+            time.sleep(15)
 
     def addstr(self, row, col, value, color, clr=False):
         if value is None:

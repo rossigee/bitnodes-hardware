@@ -31,7 +31,7 @@ var node = {
 };
 var prevBlocks;
 var currBlocks;
-var nodeStatusTimeout = 10000;
+var nodeStatusTimeout = 15000;
 var errors = 0;
 $(function() {
     (function nodeStatus() {
@@ -79,8 +79,8 @@ $(function() {
                 if (currBlocks === prevBlocks)
                     nodeStatusTimeout *= 1.2;
                 else
-                    nodeStatusTimeout = 10000;
-                setTimeout(nodeStatus, nodeStatusTimeout);  // >= 10 seconds
+                    nodeStatusTimeout = 15000;
+                setTimeout(nodeStatus, nodeStatusTimeout);  // >= 15 seconds
                 prevBlocks = currBlocks;
             }
         });

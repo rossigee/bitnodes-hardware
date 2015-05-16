@@ -20,6 +20,7 @@ The Bitnodes Hardware is a quad-core single-board computer built and configured 
 * IR Receiver
 * 5V 2A DC Input (APAC/AU/EU/US/ compatible)
 * Bitnodes Hardware Clear Acrylic Case
+* Width: 115mm x Depth: 86mm x Height: 42mm
 
 ## Software Features
 * Powered by the latest version of Ubuntu operating system
@@ -35,10 +36,8 @@ The Bitnodes Hardware is a quad-core single-board computer built and configured 
 * Security updates are applied automatically
 * Root password disabled
 * Administration interface is accessible only from private networks
-* Hardware RNG enabled to increase system entropy for use by /dev/random which is used to generate:
-    * Secret key for Django project
-    * RPC password for Bitcoin client
-* Bitcoin client compiled without wallet support to ensure it operates only as a full node
+* Hardware RNG enabled to increase system entropy for use by /dev/random
+* Bitcoin client compiled without wallet to ensure it operates only as a full node
 
 ### Screenshots
 #### Dashboard
