@@ -117,7 +117,7 @@ def system_info_task():
         'storage': partitions,
     }
     logger.debug('system_info: %s', system_info)
-    cache.set('system_info', system_info, None)  # Persistent cache
+    cache.set('system_info', system_info, 3600)
 
 
 @celeryd_init.connect

@@ -60,4 +60,4 @@ def node_status_task():
         'connections': network_info.get('connections', None),
     }
     logger.debug('node_status: %s', node_status)
-    cache.set('node_status', node_status, None)  # Persistent cache
+    cache.set('node_status', node_status, 600)
