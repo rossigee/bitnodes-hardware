@@ -2,7 +2,22 @@
 
 Thank you for purchasing Bitnodes Hardware!
 
-The Bitnodes Hardware is a quad-core single-board computer built and configured to operate as a dedicated Bitcoin full node. It puts you in full control of a node that plays a critical role in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.
+The Bitnodes Hardware is a low footprint quad-core single-board computer built and configured to operate as a dedicated Bitcoin full node. It puts you in full control of a device that plays a critical role in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.
+
+Each unit comes fully assembled and consumes only 2.5W during normal operation making the Bitnodes Hardware ideal for 24/7 operation.
+
+## Quickstart
+1. Unpack your Bitnodes Hardware.
+1. Plug in the power cord and the Ethernet cable.
+1. Note down the LAN IP address (`LAN_IP_ADDRESS`) and the WAN IP address (`WAN_IP_ADDRESS`) for your Bitnodes Hardware displayed on the LCD.
+1. Using another computer in the same LAN, open the administration page at `http://LAN_IP_ADDRESS:8080` with a web browser.
+1. Click on the **ADMINISTRATION** link at the top-right corner of the page.
+1. Login using `admin` as the password.
+1. Click **CHANGE PASSWORD** to change your password now.
+1. Your Bitnodes Hardware will take a couple hours to sync up with the latest blocks from the network.
+1. Once synced, your Bitnodes Hardware will start to verify and relay new transactions and blocks.
+
+**WARNING: DO NOT UNPLUG THE POWER CORD FOR YOUR BITNODES HARDWARE BEFORE STOPPING THE BITCOIN CLIENT GRACEFULLY FROM THE ADMINISTRATION PAGE. FAILURE TO STOP THE BITCOIN CLIENT GRACEFULLY WILL RESULT IN ITS DATABASE CORRUPTION WHICH WILL LIKELY REQUIRE FRESH DOWNLOAD OF THE ENTIRE BLOCKCHAIN.**
 
 ## Hardware Features
 * Amlogic Quad-Core ARM Cortex-A5 1.5GHz CPU
@@ -51,19 +66,6 @@ The Bitnodes Hardware is a quad-core single-board computer built and configured 
 
 #### Bandwidth Limit
 ![Bandwidth Limit](https://getaddr.bitnodes.io/static/img/screenshots/4-bandwidth-limit.png?v1 "Bandwidth Limit")
-
-## Quickstart
-1. Unpack your Bitnodes Hardware.
-1. Plug in the power cord and the Ethernet cable.
-1. Note down the LAN IP address (`LAN_IP_ADDRESS`) and the WAN IP address (`WAN_IP_ADDRESS`) for your Bitnodes Hardware displayed on the LCD.
-1. Using another computer in the same LAN, open the administration page at `http://LAN_IP_ADDRESS:8080` with a web browser.
-1. Click on the **ADMINISTRATION** link at the top-right corner of the page.
-1. Login using `admin` as the password.
-1. Click **CHANGE PASSWORD** to change your password now.
-1. Your Bitnodes Hardware will take a couple hours to sync up with the latest blocks from the network.
-1. Once synced, your Bitnodes Hardware will start to verify and relay new transactions and blocks.
-
-**WARNING: DO NOT UNPLUG THE POWER CORD FOR YOUR BITNODES HARDWARE BEFORE STOPPING THE BITCOIN CLIENT GRACEFULLY FROM THE ADMINISTRATION PAGE. FAILURE TO STOP THE BITCOIN CLIENT GRACEFULLY WILL RESULT IN ITS DATABASE CORRUPTION WHICH WILL LIKELY REQUIRE FRESH DOWNLOAD OF THE ENTIRE BLOCKCHAIN.**
 
 ## Port Forwarding
 Port forwarding must be configured on your router to allow incoming connections to your Bitnodes Hardware. Look for **Port Forwarding** page or similar in your router administration page and add the entries as shown in the table below.
