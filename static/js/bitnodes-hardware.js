@@ -27,6 +27,7 @@ function format(value) {
 
 var node = {
     bitcoind_running: 'pending',  // Watched
+    bitcoind_reachable: 'pending',  // Watched
     system_shutdown: false
 };
 var prevBlocks;
@@ -55,6 +56,12 @@ $(function() {
                 currBlocks = data.blocks;
                 $('.blocks').html(format(currBlocks));
                 $('.connections').html(format(data.connections));
+                if (data.connections) {
+                    if (data.connections <= 8)
+                        node.bitcoind_reachable = false;
+                    else
+                        node.bitcoind_reachable = true;
+                }
             },
             error: function(jqXHR) {
                 if (!node.system_shutdown) {

@@ -14,6 +14,12 @@
 
 {% include "messages.html" %}
 
+<div class="row unreachable">
+    <div class="col-md-12">
+        <div class="alert alert-danger"><a href="." class="pull-right"><i class="fa fa-refresh"></i></a>Your Bitcoin client is not accepting incoming connections. Have you configured <a href="https://github.com/ayeowch/hardware/blob/master/README.md#port-forwarding" target="_blank">port forwarding</a>?</div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-6">
         <div class="panel panel-default">
@@ -112,6 +118,16 @@ node.watch('bitcoind_running', function(id, oldVal, newVal) {
     }
     if (!node.system_shutdown)
         $('#overlay').hide();
+    console.log('node.' + id + ': ' + oldVal + ' => ' + newVal);
+    return newVal;
+});
+
+node.watch('bitcoind_reachable', function(id, oldVal, newVal) {
+    if (!newVal) {
+        $('.unreachable').show();
+    } else {
+        $('.unreachable').hide();
+    }
     console.log('node.' + id + ': ' + oldVal + ' => ' + newVal);
     return newVal;
 });

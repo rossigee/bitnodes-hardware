@@ -241,3 +241,13 @@ a {
     display: block;
     margin-top: 3px;
 }
+
+.unreachable {
+    display: none;
+}
+    .alert-danger a {
+        color: #d9534f;
+    }
+    .alert-danger i {
+        color: #a94442;
+    }
