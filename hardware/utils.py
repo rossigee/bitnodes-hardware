@@ -46,9 +46,7 @@ def get_wan_address():
     wan_address = cache.get('wan_address')
     if wan_address is None:
         url = 'https://dazzlepod.com/ip/me.json'
-        headers = {
-            'user-agent': 'bitnodes-hardware/1.0',
-        }
+        headers = {'user-agent': settings.USER_AGENT}
         try:
             response = requests.get(url, headers=headers)
         except requests.exceptions.RequestException as err:

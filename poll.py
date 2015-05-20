@@ -107,8 +107,8 @@ class NetworkStat(object):
             self.bytes_recv = bytes_recv
 
         return {
-            'sent_bps': int(self.sent_bps),
-            'recv_bps': int(self.recv_bps),
+            'o': int(self.sent_bps),
+            'i': int(self.recv_bps),
         }
 
     def _get_data(self):
@@ -120,8 +120,8 @@ def publish():
     network_stat = NetworkStat(settings.NETWORK_INTERFACE)
     while True:
         tick = {
-            'timestamp': int(time.time() * 1000),  # In ms
-            'network': network_stat.get(),
+            't': int(time.time() * 1000),  # In ms
+            'net': network_stat.get(),
         }
         PollHandler.ticks.append(tick)
         message = json.dumps([tick])

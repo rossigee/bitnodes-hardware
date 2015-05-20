@@ -24,8 +24,8 @@ import logging
 import os
 import platform
 import pytz
+import requests
 import subprocess
-import time
 from celery.signals import celeryd_init
 from datetime import datetime
 from psutil import boot_time, disk_partitions, disk_usage, virtual_memory
@@ -118,6 +118,39 @@ def system_info_task():
     }
     logger.debug('system_info: %s', system_info)
     cache.set('system_info', system_info, 3600)
+
+
+@app.task
+def register_node_task(bitcoin_address):
+    """
+    Enrolls the node in the Bitnodes Incentive Program if it is receiving
+    incoming connections: https://getaddr.bitnodes.io/nodes/incentive/.
+
+    Node must be activated separately by owner from:
+    https://getaddr.bitnodes.io/nodes/<ADDRESS>-<PORT>/
+    """
+    node_status = cache.get('node_status')
+    if node_status is None:
+        return
+    wan_address = node_status.get('wan_address', '')
+    port = node_status.get('port', '')
+    connections = node_status.get('connections', '')
+    if wan_address and port and connections and int(connections) > 8:
+        url = 'https://getaddr.bitnodes.io/api/v1/nodes/{}-{}/'.format(wan_address, port)
+        headers = {
+            'user-agent': settings.USER_AGENT,
+            'accept': 'application/json',
+        }
+        data = {
+            'bitcoin_address': bitcoin_address,
+            'url': 'http://{}'.format(wan_address),
+        }
+        try:
+            response = requests.post(url, headers=headers, data=data, verify=False)
+        except requests.exceptions.RequestException as err:
+            logger.debug(err)
+        else:
+            logger.debug(response.json())
 
 
 @celeryd_init.connect

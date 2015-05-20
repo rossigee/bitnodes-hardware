@@ -100,9 +100,9 @@ function onmessage(event) {
     var animate = false;
 
     for (var i = 0; i < data_len; i++) {
-        var timestamp = data[i].timestamp;
-        var sent_kbps = data[i].network.sent_bps / 1000;
-        var recv_kbps = data[i].network.recv_bps / 1000;
+        var timestamp = data[i].t;
+        var sent_kbps = data[i].net.o / 1000;
+        var recv_kbps = data[i].net.i / 1000;
 
         sentKbpsSeries.addPoint(
             [timestamp, sent_kbps],

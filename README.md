@@ -140,7 +140,8 @@ Build and install Bitcoin client from source.
     $ ./configure --without-gui --without-miniupnpc --disable-wallet
     $ make
     $ make check
-    $ sudo make install
+    $ mkdir ~/bin
+    $ cp src/bitcoind src/bitcoin-cli ~/bin/
 
 The administration page and the public status page for your Bitnodes Hardware are powered by the same [Django](https://www.djangoproject.com/) project installed inside a virtualenv environment. Install virtualenv and pip to manage Python packages inside the virtualenv environment.
 
@@ -210,7 +211,7 @@ Use supervisor to start all the necessary processes. The administration page is 
 
     $ ./manage.py supervisor
 
-To start or stop Bitcoin client manually using supervisor. The project expects the executable to exist at `/usr/local/bin/bitcoind`.
+To start or stop Bitcoin client manually using supervisor. The project expects the executable to exist at `~/bin/bitcoind`.
 
     $ ./manage.py supervisor start hardware-bitcoind
     $ ./manage.py supervisor stop hardware-bitcoind
@@ -229,7 +230,7 @@ In order to run the project in debug mode, i.e. `settings.DEBUG=True`, bootstrap
 
 To start celery without using supervisor.
 
-    $ celery worker -A hardware -B --loglevel=INFO
+    $ celery worker -A hardware -B --loglevel=DEBUG
 
 Execute the following command to monitor all log files written by the project in production mode.
 

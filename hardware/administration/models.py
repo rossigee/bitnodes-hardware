@@ -26,6 +26,9 @@ from hashlib import sha256
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.signals import post_save
+
+from .tasks import register_node_task
 
 B58CHARS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 
@@ -95,6 +98,11 @@ class BitcoinAddress(models.Model):
 
     def __str__(self):
         return self.bitcoin_address
+
+
+def register_node(sender, instance, **kwargs):
+    register_node_task.delay(instance.bitcoin_address)
+post_save.connect(register_node, sender=BitcoinAddress)
 
 
 class Bandwidth(models.Model):

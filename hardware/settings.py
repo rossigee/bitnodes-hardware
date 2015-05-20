@@ -211,7 +211,7 @@ if NETWORK_INTERFACE is None:
                     'Please set NETWORK_INTERFACE in settings.py manually.')
 
 # Supervisor will not start Bitcoin client if it does not exist
-BITCOIND = '/usr/local/bin/bitcoind'
+BITCOIND = os.path.expanduser('~/bin/bitcoind')
 if not os.path.isfile(BITCOIND):
     BITCOIND = None
 
@@ -244,6 +244,9 @@ if os.path.isfile(BITCOIN_CONF):
     RPC_PORT = _conf.get('bitcoind', 'rpcport')
     RPC_USER = _conf.get('bitcoind', 'rpcuser')
     RPC_PASSWORD = _conf.get('bitcoind', 'rpcpassword')
+
+# User agent to use for outgoing HTTP requests
+USER_AGENT = 'bitnodes-hardware/1.0'
 
 LOGGING = {
     'version': 1,
