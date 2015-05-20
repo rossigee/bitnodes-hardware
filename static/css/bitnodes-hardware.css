@@ -40,11 +40,16 @@ h4 {
     margin: 0 .5em;
 }
 
-a {
+a,
+.btn-link {
     color: #337ab7;
 }
-    a:hover {
+    a:hover,
+    a:focus,
+    .btn-link:hover,
+    .btn-link:focus {
         color: #2c3e50;
+        text-decoration: none;
     }
 
 .navbar-fixed-top {

@@ -56,11 +56,14 @@ $(function() {
                 currBlocks = data.blocks;
                 $('.blocks').html(format(currBlocks));
                 $('.connections').html(format(data.connections));
+
                 if (data.connections) {
-                    if (data.connections <= 8)
+                    if (data.connections <= 8) {
                         node.bitcoind_reachable = false;
-                    else
+                    } else {
                         node.bitcoind_reachable = true;
+                        $('.wan-address').html('<a href="https://getaddr.bitnodes.io/nodes/' + data.wan_address + '-' + data.port + '/" target="_blank" title="Node status on Bitnodes">' + format(data.wan_address) + ' <i class="fa fa-external-link"></i></a>');
+                    }
                 }
             },
             error: function(jqXHR) {
