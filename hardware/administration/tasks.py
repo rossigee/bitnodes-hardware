@@ -123,7 +123,7 @@ def system_info_task():
 @app.task
 def register_node_task(bitcoin_address):
     """
-    Enrolls the node in the Bitnodes Incentive Program if it is receiving
+    Enrolls the node in the Bitnodes Incentive Program if it is accepting
     incoming connections: https://getaddr.bitnodes.io/nodes/incentive/.
 
     Node must be activated separately by owner from:
