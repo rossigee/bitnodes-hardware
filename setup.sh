@@ -106,6 +106,9 @@ then
 fi
 ./manage.py create_bitcoin_conf
 
+# Create a new nginx.conf
+cp nginx.conf.tmpl nginx.conf
+
 ./manage.py makemigrations
 ./manage.py migrate
 

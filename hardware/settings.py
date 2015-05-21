@@ -54,6 +54,11 @@ ALLOWED_HOSTS = ['*']
 # to view the status of the device.
 PRIVATE = os.environ.get('NETWORK', None) == 'private'
 
+# If you change these values, be sure to update the listen directive for
+# the administration page and public status page in nginx.conf.
+NGINX_PUBLIC_PORT = 80
+NGINX_PRIVATE_PORT = 8080
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

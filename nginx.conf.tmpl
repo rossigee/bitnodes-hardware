@@ -10,6 +10,7 @@ upstream websocket {
     server                  127.0.0.1:8888;
 }
 
+# Administration page
 server {
     listen                  8080;
     server_name             _;
@@ -45,6 +46,7 @@ server {
     }
 }
 
+# Public status page
 server {
     listen                  80;
     server_name             _;

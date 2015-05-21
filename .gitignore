@@ -10,3 +10,4 @@
 celerybeat-schedule*
 db.sqlite3
 deploy.sh
+nginx.conf

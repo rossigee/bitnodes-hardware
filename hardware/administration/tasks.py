@@ -143,7 +143,7 @@ def register_node_task(bitcoin_address):
         }
         data = {
             'bitcoin_address': bitcoin_address,
-            'url': 'http://{}'.format(wan_address),
+            'url': 'http://{}:{}'.format(wan_address, settings.NGINX_PUBLIC_PORT),
         }
         try:
             response = requests.post(url, headers=headers, data=data, verify=False)
