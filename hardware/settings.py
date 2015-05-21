@@ -56,8 +56,8 @@ PRIVATE = os.environ.get('NETWORK', None) == 'private'
 
 # If you change these values, be sure to update the listen directive for
 # the administration page and public status page in nginx.conf.
-NGINX_PUBLIC_PORT = 80
-NGINX_PRIVATE_PORT = 8080
+NGINX_PRIVATE_PORT = 18000
+NGINX_PUBLIC_PORT = 18080
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -164,7 +164,7 @@ SUPERVISOR = {
         'ADDRESS': '127.0.0.1:8000',
     },
     'PUBLIC_GUNICORN': {
-        'ADDRESS': '127.0.0.1:9000',
+        'ADDRESS': '127.0.0.1:8080',
     },
 }
 

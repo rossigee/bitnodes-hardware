@@ -10,7 +10,7 @@ Each unit comes fully assembled and consumes only 2.5W during normal operation m
 1. Unpack your Bitnodes Hardware.
 1. Plug in the power cord and the Ethernet cable.
 1. Note down the LAN IP address (`LAN_IP_ADDRESS`) and the WAN IP address (`WAN_IP_ADDRESS`) for your Bitnodes Hardware displayed on the LCD.
-1. Using another computer in the same LAN, open the administration page at `http://LAN_IP_ADDRESS:8080` with a web browser.
+1. Using another computer in the same LAN, open the administration page at `http://LAN_IP_ADDRESS:18000` with a web browser.
 1. Click on the **ADMINISTRATION** link at the top-right corner of the page.
 1. Login using `admin` as the password.
 1. Click **CHANGE PASSWORD** to change your password now.
@@ -74,10 +74,10 @@ Note that the equivalent fields may be named differently depending on the make a
 
 | Service Name       | Internal IP Address | Internal Port | External Port |
 |--------------------|---------------------|---------------|---------------|
-| Public status page | `LAN_IP_ADDRESS`    | 80            | 80            |
+| Public status page | `LAN_IP_ADDRESS`    | 18080         | 18080         |
 | Bitcoin client     | `LAN_IP_ADDRESS`    | 8333          | 8333          |
 
-Restart your Bitnodes Hardware from its administration page for the changes to take effect. You should now be able to access the public status page for your Bitnodes Hardware from `http://WAN_IP_ADDRESS`. Enter your `WAN_IP_ADDRESS` in https://getaddr.bitnodes.io/#join-the-network to confirm that your Bitcoin client is accepting incoming connections.
+Restart your Bitnodes Hardware from its administration page for the changes to take effect. You should now be able to access the public status page for your Bitnodes Hardware from `http://WAN_IP_ADDRESS:18080`. Enter your `WAN_IP_ADDRESS` in https://getaddr.bitnodes.io/#join-the-network to confirm that your Bitcoin client is accepting incoming connections.
 
 ## Remote Access
 SSH is enabled on your Bitnodes Hardware if you need remote shell access from another computer in the same LAN. Login as `bitnodes` with `bitnodes` as the password. Be sure to change the password as soon as you are logged in. `root` password has been removed for security reason. You will need to be logged in as `bitnodes`, which has sudo access, to execute privileged commands.
@@ -187,7 +187,7 @@ Register the project's supervisor with system's supervisor.
     $ sudo supervisorctl reread
     $ sudo supervisorctl update
 
-Register the project with Nginx so that you can access the administration page from `http://LAN_IP_ADDRESS:8080` and the public status page from `http://LAN_IP_ADDRESS`. Access to the administration page is limited to localhost and private networks only.
+Register the project with Nginx so that you can access the administration page from `http://LAN_IP_ADDRESS:18000` and the public status page from `http://LAN_IP_ADDRESS:18080`. Access to the administration page is limited to localhost and private networks only.
 
     $ cd /etc/nginx/sites-enabled
     $ sudo rm default
@@ -207,7 +207,7 @@ Run tests.
 
     $ ./manage.py test
 
-Use supervisor to start all the necessary processes. The administration page is available at http://localhost:8000 and the public status page is available at http://localhost:9000.
+Use supervisor to start all the necessary processes. The administration page is available at http://localhost:8000 and the public status page is available at http://localhost:8080.
 
     $ ./manage.py supervisor
 
