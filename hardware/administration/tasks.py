@@ -25,6 +25,7 @@ import os
 import platform
 import pytz
 import requests
+import shutil
 import subprocess
 from celery.signals import celeryd_init
 from datetime import datetime
@@ -151,6 +152,53 @@ def register_node_task(bitcoin_address):
             logger.debug(err)
         else:
             logger.debug(response.json())
+
+
+@app.task
+def update_bitcoind_task():
+    if settings.BITCOIN_SRC is None:
+        return
+
+    tagfile = os.path.join(settings.BASE_DIR, ".current_bitcoind")
+    if not os.path.isfile(tagfile):
+        logger.debug('%s does not exist, skip update', tagfile)
+        return
+    current = open(tagfile, 'r').read().strip()
+    latest = current
+
+    url = 'https://getaddr.bitnodes.io/api/v1/bitcoind/getversion/'
+    headers = {
+        'user-agent': settings.USER_AGENT,
+        'accept': 'application/json',
+    }
+    try:
+        response = requests.get(url, headers=headers, verify=False)
+    except requests.exceptions.RequestException as err:
+        logger.debug(err)
+    else:
+        if response.status_code == 200:
+            latest = response.json().get('version').strip()
+    logger.debug('current: %s, latest: %s', current, latest)
+    if latest == current:
+        return
+
+    command = [
+        '/bin/bash', os.path.join(settings.BASE_DIR, 'build_bitcoind.sh'),
+        '-s', settings.BITCOIN_SRC,
+        '-t', latest,
+    ]
+    logger.debug('command: %s', command)
+    return_code = subprocess.call(command)
+    if return_code != 0:
+        logger.debug('%s failed with return code %d', command, return_code)
+        return
+
+    new_bitcoind = os.path.join(settings.BITCOIN_SRC, 'src', 'bitcoind')
+    if os.path.isfile(new_bitcoind):
+        start_stop_bitcoind_task('stop')
+        shutil.copy2(new_bitcoind, settings.BITCOIND)
+        open(tagfile, 'w').write(latest)
+        start_stop_bitcoind_task('start')
 
 
 @celeryd_init.connect

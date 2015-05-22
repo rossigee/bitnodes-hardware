@@ -56,8 +56,8 @@ PRIVATE = os.environ.get('NETWORK', None) == 'private'
 
 # If you change these values, be sure to update the listen directive for
 # the administration page and public status page in nginx.conf.
-NGINX_PRIVATE_PORT = 18000
-NGINX_PUBLIC_PORT = 18080
+NGINX_PRIVATE_PORT = 8001
+NGINX_PUBLIC_PORT = 1008
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -161,10 +161,10 @@ LOGIN_URL = '/administration/login/'
 SUPERVISOR = {
     'NAME': 'hardware',
     'PRIVATE_GUNICORN': {
-        'ADDRESS': '127.0.0.1:8000',
+        'ADDRESS': '127.0.0.1:18001',
     },
     'PUBLIC_GUNICORN': {
-        'ADDRESS': '127.0.0.1:8080',
+        'ADDRESS': '127.0.0.1:11008',
     },
 }
 
@@ -184,6 +184,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds=15),
         'relative': True,
     },
+    'update-bitcoind-task': {
+        'task': 'hardware.administration.tasks.update_bitcoind_task',
+        'schedule': timedelta(hours=48),
+        'relative': True,
+    },
 }
 
 CELERY_ROUTES = {
@@ -192,6 +197,9 @@ CELERY_ROUTES = {
     },
     'hardware.api.tasks.node_status_task': {
         'queue': 'low_prio',
+    },
+    'hardware.administration.tasks.update_bitcoind_task': {
+        'queue': 'update',
     },
 }
 
@@ -249,6 +257,11 @@ if os.path.isfile(BITCOIN_CONF):
     RPC_PORT = _conf.get('bitcoind', 'rpcport')
     RPC_USER = _conf.get('bitcoind', 'rpcuser')
     RPC_PASSWORD = _conf.get('bitcoind', 'rpcpassword')
+
+# Source directory for Bitcoin client from github.com/bitcoin/bitcoin
+BITCOIN_SRC = os.path.expanduser('~/bitcoin')
+if not os.path.isdir(BITCOIN_SRC):
+    BITCOIN_SRC = None
 
 # User agent to use for outgoing HTTP requests
 USER_AGENT = 'bitnodes-hardware/1.0'
