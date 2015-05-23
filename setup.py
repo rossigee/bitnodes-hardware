@@ -32,6 +32,7 @@ setup(
     description=('Django project for Bitnodes Hardware, a low footprint '
                  'quad-core single-board computer built and configured to '
                  'operate as a dedicated Bitcoin full node.'),
+    long_description='See https://github.com/ayeowch/bitnodes-hardware/blob/master/README.md',
     license='MIT',
     packages=find_packages(),
     install_requires=[
