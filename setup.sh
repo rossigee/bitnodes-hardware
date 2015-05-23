@@ -85,7 +85,7 @@ then
     touch .debug
 fi
 
-pip install -r requirements.txt
+pip install --upgrade -r requirements.txt -e .
 
 ./manage.py migrate
 

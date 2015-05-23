@@ -179,7 +179,7 @@ Install Supervisor to manage processes for the Django project.
 The project is currently supported on Linux and Mac OS X with Python 2.7.x. Clone the project into the home directory and run `setup.sh` to bootstrap the project.
 
     $ cd
-    $ git clone https://github.com/ayeowch/hardware.git
+    $ git clone https://github.com/ayeowch/bitnodes-hardware.git hardware
     $ cd hardware
     $ source ~/.profile
     $ mkvirtualenv -a "$PWD" hardware
