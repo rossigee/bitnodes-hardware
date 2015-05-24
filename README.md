@@ -242,7 +242,7 @@ Execute the following command to monitor all log files written by the project in
     $ tail -f *.log /tmp/*.log
 
 ### Django Project Update
-Stable updates are periodically pushed or merged into the master branch of https://github.com/ayeowch/bitnodes-hardware. To update your local copy of the project, execute the following commands.
+Stable updates are periodically pushed or merged into the master branch. Execute the following commands to update your local copy of the project.
 
     $ workon hardware
     $ git checkout master
