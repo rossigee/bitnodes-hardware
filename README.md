@@ -27,7 +27,7 @@ Each unit comes fully assembled and consumes only 2.5W during normal operation m
 * Toshiba 8GB eMMC NAND Flash Memory for Operating System
 * Samsung MicroSDXC 64GB EVO Memory Card UHS-1 Class 10 for User Data
 * 3.2-inch TFT LCD
-* Gigabit Ethernet (CAT6 cable included)
+* Gigabit Ethernet (1.8M CAT6 cable included)
 * 4 x USB 2.0
 * 1 x Micro USB OTG
 * 1 x Micro HDMI
