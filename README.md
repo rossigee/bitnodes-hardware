@@ -75,17 +75,17 @@ If you need assistance setting up your Bitnodes Hardware, please send an email t
 * Hardware RNG enabled to increase system entropy for use by /dev/random
 * Bitcoin client compiled without wallet to ensure it operates only as a full node
 
-### Screenshots
-#### Dashboard
+## Screenshots
+### Dashboard
 ![Dashboard](https://getaddr.bitnodes.io/static/img/screenshots/1-dashboard.png?v1 "Dashboard")
 
-#### Node Status
+### Node Status
 ![Node Status](https://getaddr.bitnodes.io/static/img/screenshots/2-node-status.png?v1 "Node Status")
 
-#### System Status
+### System Status
 ![System Status](https://getaddr.bitnodes.io/static/img/screenshots/3-system-status.png?v1 "System Status")
 
-#### Bandwidth Limit
+### Bandwidth Limit
 ![Bandwidth Limit](https://getaddr.bitnodes.io/static/img/screenshots/4-bandwidth-limit.png?v1 "Bandwidth Limit")
 
 ## Developer Guide
