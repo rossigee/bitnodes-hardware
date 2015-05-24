@@ -19,6 +19,27 @@ Each unit comes fully assembled and consumes only 2.5W during normal operation m
 
 **WARNING: DO NOT UNPLUG THE POWER CORD FOR YOUR BITNODES HARDWARE BEFORE STOPPING THE BITCOIN CLIENT GRACEFULLY FROM THE ADMINISTRATION PAGE. FAILURE TO STOP THE BITCOIN CLIENT GRACEFULLY WILL RESULT IN ITS DATABASE CORRUPTION WHICH WILL LIKELY REQUIRE FRESH DOWNLOAD OF THE ENTIRE BLOCKCHAIN.**
 
+## Remote Access
+SSH is enabled on your Bitnodes Hardware if you need remote shell access from another computer in the same LAN. Login as `bitnodes` with `bitnodes` as the password. Be sure to change the password as soon as you are logged in. `root` password has been removed for security reason. You will need to be logged in as `bitnodes`, which has sudo access, to execute privileged commands.
+
+    $ ssh bitnodes@LAN_IP_ADDRESS
+    $ passwd
+
+## Port Forwarding
+Port forwarding must be configured on your router to allow incoming connections to your Bitnodes Hardware. Look for **Port Forwarding** page or similar in your router administration page and add the entries as shown in the table below.
+
+Note that the equivalent fields may be named differently depending on the make and model of your router. Be sure to replace `LAN_IP_ADDRESS` with the actual LAN IP address for your Bitnodes Hardware.
+
+| Service Name       | Internal IP Address | Internal Port | External Port |
+|--------------------|---------------------|---------------|---------------|
+| Public status page | `LAN_IP_ADDRESS`    | 18080         | 18080         |
+| Bitcoin client     | `LAN_IP_ADDRESS`    | 8333          | 8333          |
+
+Restart your Bitnodes Hardware from its administration page for the changes to take effect. You should now be able to access the public status page for your Bitnodes Hardware from `http://WAN_IP_ADDRESS:1008`. Enter your `WAN_IP_ADDRESS` in https://getaddr.bitnodes.io/#join-the-network to confirm that your Bitcoin client is accepting incoming connections.
+
+## Help
+If you need assistance setting up your Bitnodes Hardware, please send an email to service@bitnodes.io.
+
 ## Hardware Features
 * Amlogic Quad-Core ARM Cortex-A5 1.5GHz CPU
 * Quad-Core ARM Mali-450 MP GPU OpenGL ES 2.0 600MHz
@@ -66,27 +87,6 @@ Each unit comes fully assembled and consumes only 2.5W during normal operation m
 
 #### Bandwidth Limit
 ![Bandwidth Limit](https://getaddr.bitnodes.io/static/img/screenshots/4-bandwidth-limit.png?v1 "Bandwidth Limit")
-
-## Port Forwarding
-Port forwarding must be configured on your router to allow incoming connections to your Bitnodes Hardware. Look for **Port Forwarding** page or similar in your router administration page and add the entries as shown in the table below.
-
-Note that the equivalent fields may be named differently depending on the make and model of your router. Be sure to replace `LAN_IP_ADDRESS` with the actual LAN IP address for your Bitnodes Hardware.
-
-| Service Name       | Internal IP Address | Internal Port | External Port |
-|--------------------|---------------------|---------------|---------------|
-| Public status page | `LAN_IP_ADDRESS`    | 18080         | 18080         |
-| Bitcoin client     | `LAN_IP_ADDRESS`    | 8333          | 8333          |
-
-Restart your Bitnodes Hardware from its administration page for the changes to take effect. You should now be able to access the public status page for your Bitnodes Hardware from `http://WAN_IP_ADDRESS:1008`. Enter your `WAN_IP_ADDRESS` in https://getaddr.bitnodes.io/#join-the-network to confirm that your Bitcoin client is accepting incoming connections.
-
-## Remote Access
-SSH is enabled on your Bitnodes Hardware if you need remote shell access from another computer in the same LAN. Login as `bitnodes` with `bitnodes` as the password. Be sure to change the password as soon as you are logged in. `root` password has been removed for security reason. You will need to be logged in as `bitnodes`, which has sudo access, to execute privileged commands.
-
-    $ ssh bitnodes@LAN_IP_ADDRESS
-    $ passwd
-
-## Help
-If you need assistance setting up your Bitnodes Hardware, please send an email to service@bitnodes.io.
 
 ## Developer Guide
 The sections below describe the steps that were taken to configure your Bitnodes Hardware prior to dispatch. These sections are for your reference only. You are NOT required to execute any of the steps below to start your Bitnodes Hardware.
@@ -240,6 +240,16 @@ To start celery without using supervisor.
 Execute the following command to monitor all log files written by the project in production mode.
 
     $ tail -f *.log /tmp/*.log
+
+### Django Project Update
+Stable updates are periodically pushed or merged into the master branch of https://github.com/ayeowch/bitnodes-hardware. To update your local copy of the project, execute the following commands.
+
+    $ workon hardware
+    $ git checkout master
+    $ git pull
+    $ ./manage.py collectstatic --noinput
+    $ ./manage.py migrate
+    $ ./manage.py supervisor restart all
 
 ### Rebuild System
 **WARNING: THIS WILL REMOVE THE OPERATING SYSTEM, ALL APPLICATIONS AND THEIR ASSOCIATED DATA ON THE PRIMARY DISK (eMMC) OF YOUR BITNODES HARDWARE. YOU SHOULD ONLY NEED TO REBUILD YOUR SYSTEM IF IT IS NO LONGER BOOTING UP OR YOU HAVE FORGOTTEN THE PASSWORD TO ACCESS YOUR BITNODES HARDWARE.**
