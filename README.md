@@ -135,14 +135,14 @@ Build and install Bitcoin client from source.
     $ cd
     $ git clone https://github.com/bitcoin/bitcoin.git
     $ cd bitcoin
-    $ git checkout v0.10.1
+    $ git checkout v0.10.2
     $ ./autogen.sh
     $ ./configure --without-gui --without-miniupnpc --disable-wallet
     $ make
     $ make check
     $ mkdir ~/bin
     $ cp src/bitcoind src/bitcoin-cli ~/bin/
-    $ echo v0.10.1 > ~/hardware/.current_bitcoind
+    $ echo v0.10.2 > ~/hardware/.current_bitcoind
 
 The Bitcoin client will be updated automatically when a new version becomes available. If you wish to update your Bitcoin client manually, you may remove `~/hardware/.current_bitcoind` to disable the automatic update.
 
