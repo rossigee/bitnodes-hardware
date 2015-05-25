@@ -32,7 +32,7 @@ Note that the equivalent fields may be named differently depending on the make a
 
 | Service Name       | Internal IP Address | Internal Port | External Port |
 |--------------------|---------------------|---------------|---------------|
-| Public status page | `LAN_IP_ADDRESS`    | 18080         | 18080         |
+| Public status page | `LAN_IP_ADDRESS`    | 1008          | 1008          |
 | Bitcoin client     | `LAN_IP_ADDRESS`    | 8333          | 8333          |
 
 Restart your Bitnodes Hardware from its administration page for the changes to take effect. You should now be able to access the public status page for your Bitnodes Hardware from `http://WAN_IP_ADDRESS:1008`. Enter your `WAN_IP_ADDRESS` in https://getaddr.bitnodes.io/#join-the-network to confirm that your Bitcoin client is accepting incoming connections.
