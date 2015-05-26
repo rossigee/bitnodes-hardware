@@ -26,11 +26,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hardware.settings')
 
 import curses
 import sys
-import threading
 import time
 
 from django.core.cache import cache
-from django.db import OperationalError
 
 
 def get_cpu_temp():
@@ -66,27 +64,14 @@ class Display(object):
 
         curses.curs_set(0)
 
-        t = threading.Thread(target=self.update)
-        t.daemon = True
-        t.start()
-
         self.addstr(1, 1, 'BITNODES HARDWARE', self.white)
         self.addstr(1, 19, 'LOADING', self.yellow)
-        while True:
-            event = self.screen.getch()
-            if event == ord('q'):
-                break
+
+        self.update()
 
     def update(self):
         while True:
-            try:
-                self.node_status = cache.get('node_status')
-            except OperationalError:  # Database may be temporarily unavailable during upgrade
-                time.sleep(1)
-                self.addstr(1, 19, 'ERROR', self.red, clr=True)
-                self.screen.refresh()
-                continue
-
+            self.node_status = cache.get('node_status')
             if self.node_status is None:
                 time.sleep(1)
                 continue
