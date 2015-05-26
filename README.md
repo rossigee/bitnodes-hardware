@@ -6,7 +6,7 @@ The Bitnodes Hardware is a low footprint quad-core single-board computer built a
 
 Each unit comes fully assembled and consumes only 2.5W during normal operation making the Bitnodes Hardware ideal for 24/7 operation.
 
-## Quickstart
+## Quickstart Guide
 1. Unpack your Bitnodes Hardware.
 1. Plug in the power cord and the Ethernet cable.
 1. Note down the LAN IP address (`LAN_IP_ADDRESS`) and the WAN IP address (`WAN_IP_ADDRESS`) for your Bitnodes Hardware displayed on the LCD.
