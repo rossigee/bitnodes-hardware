@@ -38,7 +38,7 @@ Note that the equivalent fields may be named differently depending on the make a
 Restart your Bitnodes Hardware from its administration page for the changes to take effect. You should now be able to access the public status page for your Bitnodes Hardware from `http://WAN_IP_ADDRESS:1008`. Enter your `WAN_IP_ADDRESS` in https://getaddr.bitnodes.io/#join-the-network to confirm that your Bitcoin client is accepting incoming connections.
 
 ## Help
-If you need assistance setting up your Bitnodes Hardware, please send an email to service@bitnodes.io.
+If you need assistance setting up your Bitnodes Hardware, please post your questions in https://forum.bitnodes.io/c/bitnodes-hardware or send an email to service@bitnodes.io.
 
 ## Hardware Features
 * Amlogic Quad-Core ARM Cortex-A5 1.5GHz CPU
