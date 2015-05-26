@@ -30,6 +30,7 @@ import threading
 import time
 
 from django.core.cache import cache
+from django.db import OperationalError
 
 
 def get_cpu_temp():
@@ -78,7 +79,14 @@ class Display(object):
 
     def update(self):
         while True:
-            self.node_status = cache.get('node_status')
+            try:
+                self.node_status = cache.get('node_status')
+            except OperationalError:  # Database may be temporarily unavailable during upgrade
+                time.sleep(1)
+                self.addstr(1, 19, 'ERROR', self.red, clr=True)
+                self.screen.refresh()
+                continue
+
             if self.node_status is None:
                 time.sleep(1)
                 continue
