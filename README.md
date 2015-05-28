@@ -142,7 +142,6 @@ Build and install Bitcoin client from source.
     $ make check
     $ mkdir ~/bin
     $ cp src/bitcoind src/bitcoin-cli ~/bin/
-    $ echo v0.10.2 > ~/hardware/.current_bitcoind
 
 The Bitcoin client will be updated automatically when a new version becomes available. If you wish to update your Bitcoin client manually, you may remove `~/hardware/.current_bitcoind` to disable the automatic update.
 
@@ -179,11 +178,13 @@ Install Supervisor to manage processes for the Django project.
 The project is currently supported on Linux and Mac OS X with Python 2.7.x. Clone the project into the home directory and run `setup.sh` to bootstrap the project.
 
     $ cd
+    $ sudo rm -rf ~/.cache
     $ git clone https://github.com/ayeowch/bitnodes-hardware.git hardware
     $ cd hardware
     $ source ~/.profile
     $ mkvirtualenv -a "$PWD" hardware
     $ ./setup.sh
+    $ echo v0.10.2 > ~/hardware/.current_bitcoind
 
 Register the project's supervisor with system's supervisor.
 
