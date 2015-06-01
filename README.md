@@ -4,7 +4,7 @@ Thank you for purchasing Bitnodes Hardware!
 
 The Bitnodes Hardware is a low footprint quad-core single-board computer built and configured to operate as a dedicated Bitcoin full node. It puts you in full control of a device that plays a critical role in the Bitcoin peer-to-peer network by verifying and relaying transactions and blocks across the network.
 
-Each unit comes fully assembled and consumes only 2.5W during normal operation making the Bitnodes Hardware ideal for 24/7 operation.
+Each unit comes fully assembled and consumes as low as 2.5W during normal operation making the Bitnodes Hardware ideal for 24/7 operation.
 
 ## Quickstart Guide
 1. Unpack your Bitnodes Hardware.
