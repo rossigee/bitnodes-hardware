@@ -36,6 +36,7 @@ from django.contrib.sites.models import Site
 from django.core import management
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
+from hardware.api.tasks import exchange_rate_task
 from hardware.celery import app
 
 logger = logging.getLogger(__name__)
@@ -206,3 +207,4 @@ def startup_task(sender=None, conf=None, **kwargs):
     cache.clear()
     bandwidth_task()
     system_info_task()
+    exchange_rate_task()

@@ -236,7 +236,7 @@ In order to run the project in debug mode, i.e. `settings.DEBUG=True`, bootstrap
 
 To start celery without using supervisor.
 
-    $ celery worker -A hardware -B --loglevel=DEBUG --queues=celery,low_prio,update
+    $ celery worker -A hardware -B --purge --loglevel=DEBUG --queues=celery,low_prio,update
 
 Execute the following command to monitor all log files written by the project in production mode.
 

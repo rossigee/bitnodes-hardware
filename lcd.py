@@ -27,7 +27,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hardware.settings')
 import curses
 import sys
 import time
+from decimal import Decimal
 
+from django.conf import settings
 from django.core.cache import cache
 
 
@@ -40,6 +42,19 @@ def get_cpu_temp():
     if os.path.exists(temp):
         celcius = int(open(temp).read().strip()) / 1000
     return celcius
+
+
+def get_exchange_rate():
+    ticks = settings.REDIS_CONN.lrange('exchange_rate', 0, -1)
+    if len(ticks) == 0:
+        return (None, None)
+    curr = ticks[0]
+    prev = curr
+    if len(ticks) > 1:
+        prev = ticks[1]
+    curr = Decimal(curr).quantize(Decimal('.01'))
+    prev = Decimal(prev).quantize(Decimal('.01'))
+    return (curr, prev)
 
 
 class Display(object):
@@ -67,60 +82,69 @@ class Display(object):
         self.addstr(1, 1, 'BITNODES HARDWARE', self.white)
         self.addstr(1, 19, 'LOADING', self.yellow)
 
-        self.update()
+        while True:
+            time.sleep(self.update())
 
     def update(self):
-        while True:
-            self.node_status = cache.get('node_status')
-            if self.node_status is None:
-                time.sleep(1)
-                continue
+        self.node_status = cache.get('node_status')
+        if self.node_status is None:
+            return 1
 
-            bitcoind_running = self.node_status.get('bitcoind_running', False)
-            lan_address = self.node_status.get('lan_address', '')
-            wan_address = self.node_status.get('wan_address', '')
-            port = self.node_status.get('port', '')
-            user_agent = self.node_status.get('user_agent', '')
-            blocks = self.node_status.get('blocks', '')
-            connections = self.node_status.get('connections', '')
-            cpu_temp = get_cpu_temp()
+        bitcoind_running = self.node_status.get('bitcoind_running', False)
+        lan_address = self.node_status.get('lan_address', '')
+        wan_address = self.node_status.get('wan_address', '')
+        port = self.node_status.get('port', '')
+        user_agent = self.node_status.get('user_agent', '')
+        blocks = self.node_status.get('blocks', '')
+        connections = self.node_status.get('connections', '')
+        cpu_temp = get_cpu_temp()
+        (curr_exchange_rate, prev_exchange_rate) = get_exchange_rate()
 
-            if bitcoind_running:
-                self.addstr(1, 19, 'RUNNING', self.green, clr=True)
-            else:
-                self.addstr(1, 19, 'STOPPED', self.red, clr=True)
+        if bitcoind_running:
+            self.addstr(1, 19, 'RUNNING', self.green, clr=True)
+        else:
+            self.addstr(1, 19, 'STOPPED', self.red, clr=True)
 
-            self.addstr(3, 1, 'LAN address', self.white)
-            self.addstr(3, 13, lan_address, self.green, clr=True)
+        self.addstr(3, 1, 'LAN address', self.white)
+        self.addstr(3, 13, lan_address, self.green, clr=True)
 
-            self.addstr(4, 1, 'WAN address', self.white)
-            self.addstr(4, 13, wan_address, self.green, clr=True)
+        self.addstr(4, 1, 'WAN address', self.white)
+        self.addstr(4, 13, wan_address, self.green, clr=True)
 
-            self.addstr(5, 1, 'Port', self.white)
-            self.addstr(5, 13, port, self.green, clr=True)
+        self.addstr(5, 1, 'Port', self.white)
+        self.addstr(5, 13, port, self.green, clr=True)
 
-            self.addstr(6, 1, 'User agent', self.white)
-            self.addstr(6, 13, user_agent, self.green, clr=True)
+        self.addstr(6, 1, 'User agent', self.white)
+        self.addstr(6, 13, user_agent, self.green, clr=True)
 
-            self.addstr(7, 1, 'Blocks', self.white)
-            self.addstr(7, 13, blocks, self.green, clr=True)
+        self.addstr(7, 1, 'Blocks', self.white)
+        self.addstr(7, 13, blocks, self.green, clr=True)
 
-            self.addstr(8, 1, 'Connections', self.white)
+        self.addstr(8, 1, 'Connections', self.white)
+        color = self.red
+        if connections and int(connections) > 8:
+            color = self.green
+        self.addstr(8, 13, connections, color, clr=True)
+
+        self.addstr(9, 1, 'CPU temp', self.white)
+        if cpu_temp:
             color = self.red
-            if connections and int(connections) > 8:
+            if cpu_temp <= 80:
                 color = self.green
-            self.addstr(8, 13, connections, color, clr=True)
+            cpu_temp = '%dC' % cpu_temp
+            self.addstr(9, 13, cpu_temp, color, clr=True)
 
-            if cpu_temp:
-                self.addstr(10, 1, 'CPU temp', self.white)
+        self.addstr(10, 1, 'USD/BTC', self.white)
+        if curr_exchange_rate:
+            color = self.yellow
+            if curr_exchange_rate > prev_exchange_rate:
+                color = self.green
+            elif curr_exchange_rate < prev_exchange_rate:
                 color = self.red
-                if cpu_temp <= 80:
-                    color = self.green
-                cpu_temp = '%dC' % cpu_temp
-                self.addstr(10, 13, cpu_temp, color, clr=True)
+            self.addstr(10, 13, curr_exchange_rate, color, clr=True)
 
-            self.screen.refresh()
-            time.sleep(15)
+        self.screen.refresh()
+        return 15
 
     def addstr(self, row, col, value, color, clr=False):
         if value is None:

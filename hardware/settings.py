@@ -21,6 +21,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 import os
+import redis
 import string
 from ConfigParser import RawConfigParser
 from cStringIO import StringIO
@@ -184,6 +185,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds=15),
         'relative': True,
     },
+    'exchange-rate-task': {
+        'task': 'hardware.api.tasks.exchange_rate_task',
+        'schedule': timedelta(minutes=15),
+        'relative': True,
+    },
     'update-bitcoind-task': {
         'task': 'hardware.administration.tasks.update_bitcoind_task',
         'schedule': timedelta(hours=48),
@@ -196,6 +202,9 @@ CELERY_ROUTES = {
         'queue': 'low_prio',
     },
     'hardware.api.tasks.node_status_task': {
+        'queue': 'low_prio',
+    },
+    'hardware.api.tasks.exchange_rate_task': {
         'queue': 'low_prio',
     },
     'hardware.administration.tasks.update_bitcoind_task': {
@@ -262,6 +271,8 @@ if os.path.isfile(BITCOIN_CONF):
 BITCOIN_SRC = os.path.expanduser('~/bitcoin')
 if not os.path.isdir(BITCOIN_SRC):
     BITCOIN_SRC = None
+
+REDIS_CONN = redis.StrictRedis(host='localhost', port=6379, db=1)
 
 # User agent to use for outgoing HTTP requests
 USER_AGENT = 'bitnodes-hardware/1.0'

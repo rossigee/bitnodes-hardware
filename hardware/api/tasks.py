@@ -21,6 +21,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 import logging
+import requests
+from decimal import Decimal
 
 from django.conf import settings
 from django.core.cache import cache
@@ -61,3 +63,18 @@ def node_status_task():
     }
     logger.debug('node_status: %s', node_status)
     cache.set('node_status', node_status, 600)
+
+
+@app.task
+def exchange_rate_task():
+    url = 'https://api.coindesk.com/v1/bpi/currentprice/USD.json'
+    headers = {'user-agent': settings.USER_AGENT}
+    try:
+        response = requests.get(url, headers=headers)
+    except requests.exceptions.RequestException as err:
+        logger.debug(err)
+    else:
+        if response.status_code == 200:
+            key = 'exchange_rate'
+            settings.REDIS_CONN.lpush(key, Decimal(response.json()['bpi']['USD']['rate']))
+            settings.REDIS_CONN.ltrim(key, 0, 96)
