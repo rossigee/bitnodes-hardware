@@ -78,6 +78,8 @@ def shutdown_task(method):
         method,
         'now',
     ]
+    if method == '-h':
+        command.append('You may safely unplug the power cord, when only the red LED remains on.')
     logger.debug('command: %s', command)
     if not settings.DEBUG:
         subprocess.call(command)
