@@ -112,10 +112,10 @@ $(function() {
                 currBlocks = data.blocks;
                 $('.blocks').html(format(currBlocks));
                 $('.connections').html(format(data.connections));
-                if (data.bytes_recv)
-                    $('.recv').html(fileSize(data.bytes_recv));
                 if (data.bytes_sent)
                     $('.sent').html(fileSize(data.bytes_sent));
+                if (data.bytes_recv)
+                    $('.recv').html(fileSize(data.bytes_recv));
 
                 if (data.connections) {
                     if (data.connections <= 8) {

@@ -70,8 +70,8 @@ def node_status_task():
         'protocol_version': network_info.get('protocolversion', None),
         'blocks': block_count,
         'connections': network_info.get('connections', None),
-        'bytes_recv': network_info.get('totalbytesrecv', None),
         'bytes_sent': network_info.get('totalbytessent', None),
+        'bytes_recv': network_info.get('totalbytesrecv', None),
     }
     if error and isinstance(error.message, dict):
         node_status.update({
