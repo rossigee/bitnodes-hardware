@@ -35,7 +35,11 @@ class RpcError(Exception):
 
 
 def rpc(cmd, params=None):
-    allowed = ('getnetworkinfo', 'getblockcount',)
+    allowed = (
+        'getblockcount',
+        'getnettotals',
+        'getnetworkinfo',
+    )
     if cmd not in allowed:
         raise RpcError('Unsupported RPC command: {}'.format(cmd))
     url = 'http://{}:{}/'.format(settings.RPC_HOST, settings.RPC_PORT)

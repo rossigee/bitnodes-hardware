@@ -34,6 +34,8 @@ class TestTasks(TestCase):
             [
                 'bitcoind_running',
                 'blocks',
+                'bytes_recv',
+                'bytes_sent',
                 'connections',
                 'lan_address',
                 'port',

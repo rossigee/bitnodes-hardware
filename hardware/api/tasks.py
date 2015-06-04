@@ -37,7 +37,12 @@ logger = logging.getLogger(__name__)
 def node_status_task():
     network_info = {}
     try:
-        network_info = rpc('getnetworkinfo')
+        network_info.update(rpc('getnetworkinfo'))
+    except RpcError as err:
+        logger.debug(err)
+
+    try:
+        network_info.update(rpc('getnettotals'))
     except RpcError as err:
         logger.debug(err)
 
@@ -60,6 +65,8 @@ def node_status_task():
         'protocol_version': network_info.get('protocolversion', None),
         'blocks': block_count,
         'connections': network_info.get('connections', None),
+        'bytes_recv': network_info.get('totalbytesrecv', None),
+        'bytes_sent': network_info.get('totalbytessent', None),
     }
     logger.debug('node_status: %s', node_status)
     cache.set('node_status', node_status, 600)
