@@ -35,21 +35,26 @@ logger = logging.getLogger(__name__)
 
 @app.task
 def node_status_task():
+    error = None
+
     network_info = {}
     try:
         network_info.update(rpc('getnetworkinfo'))
     except RpcError as err:
+        error = err
         logger.debug(err)
 
     try:
         network_info.update(rpc('getnettotals'))
     except RpcError as err:
+        error = err
         logger.debug(err)
 
     block_count = None
     try:
         block_count = rpc('getblockcount')
     except RpcError as err:
+        error = err
         logger.debug(err)
 
     bitcoind_running = False
@@ -68,6 +73,10 @@ def node_status_task():
         'bytes_recv': network_info.get('totalbytesrecv', None),
         'bytes_sent': network_info.get('totalbytessent', None),
     }
+    if error and isinstance(error.message, dict):
+        node_status.update({
+            'error': error.message.get('message', '').split()[0].upper(),
+        })
     logger.debug('node_status: %s', node_status)
     cache.set('node_status', node_status, 600)
 

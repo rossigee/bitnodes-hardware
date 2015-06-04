@@ -103,7 +103,8 @@ class Display(object):
         if bitcoind_running:
             self.addstr(1, 19, 'RUNNING', self.green, clr=True)
         else:
-            self.addstr(1, 19, 'STOPPED', self.red, clr=True)
+            error = self.node_status.get('error', 'STOPPED')
+            self.addstr(1, 19, error, self.red, clr=True)
 
         self.addstr(3, 1, 'LAN address', self.white)
         self.addstr(3, 13, lan_address, self.green, clr=True)
