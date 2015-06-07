@@ -252,6 +252,11 @@ Stable updates are periodically pushed or merged into the master branch. Execute
     $ ./manage.py migrate
     $ ./manage.py supervisor restart all
 
+Alternatively, you may execute the following commands to recreate the project using the latest commit from the master branch.
+
+    $ workon hardware
+    $ ./setup.sh
+
 ### Rebuild System
 **WARNING: THIS WILL REMOVE THE OPERATING SYSTEM, ALL APPLICATIONS AND THEIR ASSOCIATED DATA ON THE PRIMARY DISK (eMMC) OF YOUR BITNODES HARDWARE. YOU SHOULD ONLY NEED TO REBUILD YOUR SYSTEM IF IT IS NO LONGER BOOTING UP OR YOU HAVE FORGOTTEN THE PASSWORD TO ACCESS YOUR BITNODES HARDWARE.**
 
