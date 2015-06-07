@@ -39,19 +39,6 @@ Usage: $0 [-h] [-d]
 EOF
 }
 
-reboot()
-{
-    cat <<EOF
-
-Setup completed!
-
-A reboot might be good idea after setup on production system to make sure
-system's supervisor starts the project's supervisor which in turn starts the
-required processes for the project.
-
-EOF
-}
-
 debug=0
 
 while getopts ":d" opt
@@ -73,18 +60,26 @@ done
 
 find . -name '*.pyc' -exec rm -vf '{}' \; -print
 
-rm -vf *.log *.db db.sqlite3 .secret_key .debug
 if [ ${debug} -eq 0 ]
 then
+    /usr/bin/pkill -f lcd.py
+    echo "Stopping project's supervisor. This can take a few minutes."
+    ./manage.py supervisor stop all
     dropdb --echo bitnodes
     createdb --echo bitnodes
 fi
+
+rm -vf *.log *.db db.sqlite3 .secret_key .debug
 
 if [ ${debug} -eq 1 ]
 then
     touch .debug
 fi
 
+# Update project
+git checkout master && git pull
+
+pip install --upgrade pip
 pip install --upgrade -r requirements.txt -e .
 
 ./manage.py migrate
@@ -114,5 +109,10 @@ cp nginx.conf.tmpl nginx.conf
 
 if [ ${debug} -eq 0 ]
 then
-    reboot
+    setsid sh -c 'exec ./lcd.py <> /dev/tty1 >&0 2>&1' &
+    echo "Restarting system's supervisor. This can take a few minutes."
+    sudo service supervisor stop
+    sudo service supervisor start
 fi
+
+echo "Setup completed!"
