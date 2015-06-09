@@ -266,10 +266,11 @@ Detach the eMMC from the back of the main board of your Bitnodes Hardware. Attac
 
     $ df -h
 
-Unmount the boot volume as shown in the output of the `df` command, e.g. /dev/disk2s1, and flash the [Bitnodes Hardware image](https://getaddr.bitnodes.io/hardware/) into the entire disk of the eMMC, e.g. /dev/rdisk2.
+Unmount the boot volume as shown in the output of the `df` command, e.g. /dev/disk2s1, and flash the Bitnodes Hardware image ([bitnodes-hardware-2015-06-07.img.xz](https://getaddr.bitnodes.io/static/xz/bitnodes-hardware-2015-06-07.img.xz) - 876MB - [md5sum](https://getaddr.bitnodes.io/static/xz/bitnodes-hardware-2015-06-07.img.xz.md5sum)) into the entire disk of the eMMC, e.g. /dev/rdisk2. `unxz` is available for download from [XZ Utils](http://tukaani.org/xz/).
 
     $ sudo diskutil unmount /dev/disk2s1
-    $ sudo dd if=bitnodes-hardware-2015-04-27.img of=/dev/rdisk2 bs=1m
+    $ unxz bitnodes-hardware-2015-06-07.img.xz
+    $ sudo dd if=bitnodes-hardware-2015-06-07.img of=/dev/rdisk2 bs=1m
     $ sync
 
 A new boot volume on the eMMC will be mounted on your host system after the steps above. Eject the eMMC.
