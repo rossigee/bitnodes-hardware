@@ -172,6 +172,7 @@ def main(argv):
     ]
     while True:
         subprocess.call(command)
+
     return 0
 
 if __name__ == '__main__':
