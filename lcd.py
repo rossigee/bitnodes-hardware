@@ -164,14 +164,17 @@ def main(argv):
         if argv[1] == 'slave':
             display = Display()
             curses.wrapper(display.show)
-            return 0
+            return 1
 
     command = [
-        './lcd.py',
+        sys.executable,
+        os.path.realpath(__file__),
         'slave',
     ]
     while True:
-        subprocess.call(command)
+        return_code = subprocess.call(command)
+        if return_code != 1:
+            break
 
     return 0
 
