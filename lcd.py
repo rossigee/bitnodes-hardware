@@ -25,6 +25,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hardware.settings')
 
 import curses
+import subprocess
 import sys
 import time
 from decimal import Decimal
@@ -136,6 +137,7 @@ class Display(object):
             self.addstr(9, 13, cpu_temp, color, clr=True)
 
         self.addstr(10, 1, 'USD/BTC', self.white)
+
         if curr_exchange_rate:
             color = self.yellow
             if curr_exchange_rate > prev_exchange_rate:
@@ -157,10 +159,20 @@ class Display(object):
         self.screen.addstr(row, col, value, color)
 
 
-def main():
-    display = Display()
-    curses.wrapper(display.show)
+def main(argv):
+    if len(argv) > 1:
+        if argv[1] == 'slave':
+            display = Display()
+            curses.wrapper(display.show)
+            return 0
 
+    command = [
+        './lcd.py',
+        'slave',
+    ]
+    while True:
+        subprocess.call(command)
+    return 0
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(main(sys.argv))
