@@ -94,9 +94,9 @@ pip install --upgrade -r requirements.txt -e .
 ./manage.py collectstatic --noinput --clear
 
 # Create a new bitcoin.conf with random RPC username and password
+rm -vf .bitcoin/bitcoin.conf
 if [ ${debug} -eq 0 ]
 then
-    rm -vf .bitcoin/bitcoin.conf
     rm -vf /media/data/.bitcoin/bitcoin.conf
 fi
 ./manage.py create_bitcoin_conf
