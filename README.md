@@ -260,7 +260,7 @@ Alternatively, you may execute the following commands to recreate the project us
 ### Rebuild System
 **WARNING: THIS WILL REMOVE THE OPERATING SYSTEM, ALL APPLICATIONS AND THEIR ASSOCIATED DATA ON THE PRIMARY DISK (eMMC) OF YOUR BITNODES HARDWARE. YOU SHOULD ONLY NEED TO REBUILD YOUR SYSTEM IF IT IS NO LONGER BOOTING UP OR YOU HAVE FORGOTTEN THE PASSWORD TO ACCESS YOUR BITNODES HARDWARE.**
 
-If you wish to rebuild the system for your Bitnodes Hardware, you will need a Linux or Mac OS X host system and a Micro SD card reader to write a new image into the eMMC.
+If you wish to rebuild the system for your Bitnodes Hardware, you will need a Linux or Mac OS X host system and a Micro SD card reader, such as [Transcend RDF5 USB 3.0 card reader](http://www.transcend-info.com/Products/No-396), to write a new image into the eMMC.
 
 Detach the eMMC from the back of the main board of your Bitnodes Hardware. Attach the eMMC to the eMMC adapter and plug in the adapter into your Micro SD card reader. Plug in the Micro SD card reader into a USB port on your host system. The boot volume on the eMMC should now be mounted on your host system. Confirm this by checking the output of `df` command on your host system.
 
@@ -277,4 +277,7 @@ A new boot volume on the eMMC will be mounted on your host system after the step
 
     $ sudo diskutil eject /dev/rdisk2
 
-Attach the eMMC to the back of the main board of your Bitnodes Hardware and power it up.
+Attach the eMMC to the back of the main board of your Bitnodes Hardware and power it up. Execute the following commands on your Bitnodes Hardware to update the project with the latest commit from the master branch.
+
+    $ workon hardware
+    $ ./setup.sh
