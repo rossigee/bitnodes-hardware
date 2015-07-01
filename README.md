@@ -130,23 +130,6 @@ Update the last line in the getty file for tty1 to allow normal user to login au
     $ sudo vi /etc/init/tty1.conf
     exec /sbin/getty -8 38400 tty1 -a bitnodes
 
-Build and install Bitcoin client from source.
-
-    $ cd
-    $ git clone https://github.com/bitcoin/bitcoin.git
-    $ cd bitcoin
-    $ git checkout v0.10.2
-    $ ./autogen.sh
-    $ ./configure --without-gui --without-miniupnpc --disable-wallet
-    $ make
-    $ make check
-    $ mkdir ~/bin
-    $ cp src/bitcoind src/bitcoin-cli ~/bin/
-
-The Bitcoin client will be updated automatically when a new version becomes available. If you wish to update your Bitcoin client manually, you may remove `~/hardware/.current_bitcoind` to disable the automatic update.
-
-    $ rm ~/hardware/.current_bitcoind
-
 The administration page and the public status page for your Bitnodes Hardware are powered by the same [Django](https://www.djangoproject.com/) project installed inside a virtualenv environment. Install virtualenv and pip to manage Python packages inside the virtualenv environment.
 
     $ sudo apt-get -y install python-pip
@@ -173,6 +156,24 @@ Install Nginx for use as the front-end web server for the Django project.
 Install Supervisor to manage processes for the Django project.
 
     $ sudo apt-get -y install supervisor
+
+### Bitcoin Client Installation
+Build and install Bitcoin client from source.
+
+    $ cd
+    $ git clone https://github.com/bitcoin/bitcoin.git
+    $ cd bitcoin
+    $ git checkout v0.10.2
+    $ ./autogen.sh
+    $ ./configure --without-gui --without-miniupnpc --disable-wallet
+    $ make
+    $ make check
+    $ mkdir ~/bin
+    $ cp src/bitcoind src/bitcoin-cli ~/bin/
+
+The Bitcoin client will be updated automatically when a new version becomes available. If you wish to update your Bitcoin client manually, you may remove `~/hardware/.current_bitcoind` to disable the automatic update.
+
+    $ rm ~/hardware/.current_bitcoind
 
 ### Django Project Installation
 The project is currently supported on Linux and Mac OS X with Python 2.7.x. Clone the project into the home directory and run `setup.sh` to bootstrap the project.
