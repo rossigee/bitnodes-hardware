@@ -75,7 +75,8 @@ cd ${src}
 git fetch
 git checkout ${tag}
 
-make clean && \
+git clean -f -d -x && \
+    ./autogen.sh && \
     ./configure --without-gui --without-miniupnpc --disable-wallet && \
     make && \
     exit 0
