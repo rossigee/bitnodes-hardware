@@ -192,7 +192,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'update-bitcoind-task': {
         'task': 'hardware.administration.tasks.update_bitcoind_task',
-        'schedule': timedelta(hours=48),
+        'schedule': timedelta(hours=24),
         'relative': True,
     },
 }
