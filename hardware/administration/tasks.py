@@ -185,6 +185,7 @@ def update_bitcoind_task():
     if latest == current:
         return
 
+    start_stop_bitcoind_task('stop')
     command = [
         '/bin/bash', os.path.join(settings.BASE_DIR, 'build_bitcoind.sh'),
         '-s', settings.BITCOIN_SRC,
@@ -192,16 +193,14 @@ def update_bitcoind_task():
     ]
     logger.debug('command: %s', command)
     return_code = subprocess.call(command)
-    if return_code != 0:
+    if return_code == 0:
+        new_bitcoind = os.path.join(settings.BITCOIN_SRC, 'src', 'bitcoind')
+        if os.path.isfile(new_bitcoind):
+            shutil.copy2(new_bitcoind, settings.BITCOIND)
+            open(tagfile, 'w').write(latest)
+    else:
         logger.debug('%s failed with return code %d', command, return_code)
-        return
-
-    new_bitcoind = os.path.join(settings.BITCOIN_SRC, 'src', 'bitcoind')
-    if os.path.isfile(new_bitcoind):
-        start_stop_bitcoind_task('stop')
-        shutil.copy2(new_bitcoind, settings.BITCOIND)
-        open(tagfile, 'w').write(latest)
-        start_stop_bitcoind_task('start')
+    start_stop_bitcoind_task('start')
 
 
 @celeryd_init.connect
