@@ -224,6 +224,7 @@ if NETWORK_INTERFACE not in _interfaces:
     _allowed_interfaces = [
         'eth0',  # Linux
         'en0',  # Mac OS X
+        'wlan0',  # Wi-Fi on Linux
     ]
     for interface in _allowed_interfaces:
         if interface in _interfaces:
