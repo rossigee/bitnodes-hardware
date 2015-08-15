@@ -64,6 +64,7 @@ if [ ${debug} -eq 0 ]
 then
     /usr/bin/pkill -f lcd.py
     echo "Stopping project's supervisor. This can take a few minutes."
+    echo "Ignore ImportError when setup.sh is executed for the first time."
     ./manage.py supervisor stop all
     dropdb --echo bitnodes
     createdb --echo bitnodes
