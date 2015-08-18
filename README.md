@@ -51,10 +51,10 @@ If you need assistance setting up your Bitnodes Hardware, please post your quest
 * Gigabit Ethernet (1.8M CAT6 cable included)
 * 4 x USB 2.0
 * 1 x Micro USB OTG
-* 1 x Micro HDMI
+* 1 x Standard Type-A HDMI
 * Serial Console Port (UART)
 * IR Receiver
-* 5V 2A DC Input (APAC/AU/EU/US/ compatible)
+* 5V 2A DC Input (APAC/AU/EU/US compatible)
 * Bitnodes Hardware Clear Acrylic Case
 * Width: 115mm x Depth: 86mm x Height: 42mm
 
@@ -267,11 +267,11 @@ Detach the eMMC from the back of the main board of your Bitnodes Hardware. Attac
 
     $ df -h
 
-Unmount the boot volume as shown in the output of the `df` command, e.g. /dev/disk2s1, and flash the Bitnodes Hardware image ([bitnodes-hardware-2015-07-18.img.xz](https://getaddr.bitnodes.io/static/xz/bitnodes-hardware-2015-07-18.img.xz) - 876MB - [md5sum](https://getaddr.bitnodes.io/static/xz/bitnodes-hardware-2015-07-18.img.xz.md5sum)) into the entire disk of the eMMC, e.g. /dev/rdisk2. `unxz` is available for download from [XZ Utils](http://tukaani.org/xz/).
+Unmount the boot volume as shown in the output of the `df` command, e.g. /dev/disk2s1, and flash the Bitnodes Hardware image ([bitnodes-hardware-2015-08-17.img.xz](https://getaddr.bitnodes.io/static/xz/bitnodes-hardware-2015-08-17.img.xz) - 876MB - [md5sum](https://getaddr.bitnodes.io/static/xz/bitnodes-hardware-2015-08-17.img.xz.md5sum)) into the entire disk of the eMMC, e.g. /dev/rdisk2. `unxz` is available for download from [XZ Utils](http://tukaani.org/xz/).
 
     $ sudo diskutil unmount /dev/disk2s1
-    $ unxz bitnodes-hardware-2015-07-18.img.xz
-    $ sudo dd if=bitnodes-hardware-2015-07-18.img of=/dev/rdisk2 bs=1m
+    $ unxz bitnodes-hardware-2015-08-17.img.xz
+    $ sudo dd if=bitnodes-hardware-2015-08-17.img of=/dev/rdisk2 bs=1m
     $ sync
 
 A new boot volume on the eMMC will be mounted on your host system after the steps above. Eject the eMMC.
