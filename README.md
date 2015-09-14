@@ -46,7 +46,7 @@ If you need assistance setting up your Bitnodes Hardware, please post your quest
 * 1GB DDR3 SDRAM
 * Hardware RNG
 * Toshiba 8GB eMMC NAND Flash Memory for Operating System
-* Samsung MicroSDXC 64GB EVO Memory Card UHS-1 Class 10 for User Data
+* [Samsung MicroSDXC 128GB EVO Memory Card](http://www.samsung.com/us/computer/memory-storage-accessories/MB-MP128DA/AM) (Model B1 128GB ONLY)
 * 3.2-inch TFT LCD
 * Gigabit Ethernet (1.8M CAT6 cable included)
 * 4 x USB 2.0
