@@ -128,10 +128,10 @@ def system_info_task():
 def register_node_task(bitcoin_address):
     """
     Enrolls the node in the Bitnodes Incentive Program if it is accepting
-    incoming connections: https://getaddr.bitnodes.io/nodes/incentive/.
+    incoming connections: https://bitnodes.21.co/nodes/incentive/.
 
     Node must be activated separately by owner from:
-    https://getaddr.bitnodes.io/nodes/<ADDRESS>-<PORT>/
+    https://bitnodes.21.co/nodes/<ADDRESS>-<PORT>/
     """
     node_status = cache.get('node_status')
     if node_status is None:
@@ -140,7 +140,7 @@ def register_node_task(bitcoin_address):
     port = node_status.get('port', '')
     connections = node_status.get('connections', '')
     if wan_address and port and connections and int(connections) > 8:
-        url = 'https://getaddr.bitnodes.io/api/v1/nodes/{}-{}/'.format(wan_address, port)
+        url = 'https://bitnodes.21.co/api/v1/nodes/{}-{}/'.format(wan_address, port)
         headers = {
             'user-agent': settings.USER_AGENT,
             'accept': 'application/json',
@@ -169,7 +169,7 @@ def update_bitcoind_task():
     current = open(tagfile, 'r').read().strip()
     latest = current
 
-    url = 'https://getaddr.bitnodes.io/api/v1/bitcoind/getversion/'
+    url = 'https://bitnodes.21.co/api/v1/bitcoind/getversion/'
     headers = {
         'user-agent': settings.USER_AGENT,
         'accept': 'application/json',

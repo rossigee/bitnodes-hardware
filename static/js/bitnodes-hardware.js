@@ -122,7 +122,7 @@ $(function() {
                         node.bitcoind_reachable = false;
                     } else {
                         node.bitcoind_reachable = true;
-                        $('.wan-address').html('<a href="https://getaddr.bitnodes.io/nodes/' + data.wan_address + '-' + data.port + '/" target="_blank" title="Node status on Bitnodes">' + format(data.wan_address) + ' <i class="fa fa-external-link"></i></a>');
+                        $('.wan-address').html('<a href="https://bitnodes.21.co/nodes/' + data.wan_address + '-' + data.port + '/" target="_blank" title="Node status on Bitnodes">' + format(data.wan_address) + ' <i class="fa fa-external-link"></i></a>');
                     }
                 }
             },
