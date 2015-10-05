@@ -150,7 +150,8 @@ def register_node_task(bitcoin_address):
             'url': 'http://{}:{}'.format(wan_address, settings.NGINX_PUBLIC_PORT),
         }
         try:
-            response = requests.post(url, headers=headers, data=data, verify=False)
+            response = requests.post(url, headers=headers, data=data, verify=False,
+                                     timeout=settings.HTTP_TIMEOUT)
         except requests.exceptions.RequestException as err:
             logger.debug(err)
         else:
@@ -175,7 +176,7 @@ def update_bitcoind_task():
         'accept': 'application/json',
     }
     try:
-        response = requests.get(url, headers=headers, verify=False)
+        response = requests.get(url, headers=headers, verify=False, timeout=settings.HTTP_TIMEOUT)
     except requests.exceptions.RequestException as err:
         logger.debug(err)
     else:

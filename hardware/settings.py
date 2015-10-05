@@ -278,6 +278,8 @@ REDIS_CONN = redis.StrictRedis(host='localhost', port=6379, db=1)
 # User agent to use for outgoing HTTP requests
 USER_AGENT = 'bitnodes-hardware/1.0'
 
+HTTP_TIMEOUT = 5.0
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

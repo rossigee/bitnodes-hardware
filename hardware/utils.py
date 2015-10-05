@@ -48,7 +48,7 @@ def get_wan_address():
         url = 'https://dazzlepod.com/ip/me.json'
         headers = {'user-agent': settings.USER_AGENT}
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=settings.HTTP_TIMEOUT)
         except requests.exceptions.RequestException as err:
             logger.debug(err)
         else:
