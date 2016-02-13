@@ -23,9 +23,10 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from hardware.dashboard.views import dashboard
 
 urlpatterns = [
-    url(r'^$', 'hardware.dashboard.views.dashboard', name='dashboard'),
+    url(r'^$', dashboard, name='dashboard'),
     url(r'^api/', include('hardware.api.urls')),
 ]
 
