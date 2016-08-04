@@ -36,7 +36,7 @@ setup(
     license='MIT',
     packages=find_packages(),
     install_requires=[
-        'Django>=1.8',
+        'Django<1.10',  # Pending PR merge: https://github.com/rfk/django-supervisor/pull/51
         'django-celery',
         'django-debug-toolbar',
         'django-supervisor',
