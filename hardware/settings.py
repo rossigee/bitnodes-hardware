@@ -237,6 +237,9 @@ if NETWORK_INTERFACE is None:
 BITCOIND = os.path.expanduser('~/bin/bitcoind')
 if not os.path.isfile(BITCOIND):
     BITCOIND = None
+BITCOIN_CLI = os.path.expanduser('~/bin/bitcoin-cli')
+if not os.path.isfile(BITCOIN_CLI):
+    BITCOIN_CLI = None
 
 BITCOIN_DIR = os.path.join(BASE_DIR, '.bitcoin')
 SDCARD_DIR = '/media/data'

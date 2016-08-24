@@ -163,7 +163,7 @@ Build and install Bitcoin client from source.
     $ cd
     $ git clone https://github.com/bitcoin/bitcoin.git
     $ cd bitcoin
-    $ git checkout v0.11.1
+    $ git checkout v0.13.0
     $ ./autogen.sh
     $ ./configure --without-gui --without-miniupnpc --disable-wallet
 
@@ -232,7 +232,7 @@ The project is currently supported on Linux and Mac OS X with Python 2.7.x. Clon
     $ source ~/.profile
     $ mkvirtualenv -a "$PWD" hardware
     $ ./setup.sh
-    $ echo v0.11.1 > ~/hardware/.current_bitcoind
+    $ echo v0.13.0 > ~/hardware/.current_bitcoind
 
 Register the project's supervisor with system's supervisor.
 

@@ -195,10 +195,13 @@ def update_bitcoind_task():
     logger.debug('command: %s', command)
     return_code = subprocess.call(command)
     if return_code == 0:
-        new_bitcoind = os.path.join(settings.BITCOIN_SRC, 'src', 'bitcoind')
-        if os.path.isfile(new_bitcoind):
-            shutil.copy2(new_bitcoind, settings.BITCOIND)
+        bitcoind = os.path.join(settings.BITCOIN_SRC, 'src', 'bitcoind')
+        if os.path.isfile(bitcoind):
+            shutil.copy2(bitcoind, settings.BITCOIND)
             open(tagfile, 'w').write(latest)
+        bitcoin_cli = os.path.join(settings.BITCOIN_SRC, 'src', 'bitcoin-cli')
+        if os.path.isfile(bitcoin_cli):
+            shutil.copy2(bitcoin_cli, settings.BITCOIN_CLI)
     else:
         logger.debug('%s failed with return code %d', command, return_code)
     start_stop_bitcoind_task('start')

@@ -77,9 +77,6 @@ then
     touch .debug
 fi
 
-# Required to build Bitcoin Core >= v0.12.0
-sudo apt-get install libevent-dev
-
 # Update project
 git checkout master && git pull
 
