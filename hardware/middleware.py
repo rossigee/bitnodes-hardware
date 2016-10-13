@@ -25,7 +25,10 @@ from hardware.administration import models
 
 
 class GlobalSettingsMiddleware(object):
-    def process_request(self, request):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
         request.private = settings.PRIVATE
 
         try:
@@ -41,3 +44,7 @@ class GlobalSettingsMiddleware(object):
             bandwidth = models.Bandwidth(site=request.site)
             bandwidth.save()
         request.bandwidth = bandwidth
+
+        response = self.get_response(request)
+
+        return response

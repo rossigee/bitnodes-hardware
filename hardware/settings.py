@@ -49,6 +49,8 @@ SITE_ID = 1
 
 ALLOWED_HOSTS = ['*']
 
+INTERNAL_IPS = ['127.0.0.1']
+
 # 2 instances of Gunicorn are launched to serve private (LAN) and public (WAN)
 # network. Private network will have access to the administration app to manage
 # the device. Public network will only have read-only access to the dashboard
@@ -76,7 +78,9 @@ INSTALLED_APPS = (
     'hardware.dashboard',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,10 +88,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'hardware.middleware.GlobalSettingsMiddleware',
-)
+]
 
 ROOT_URLCONF = 'hardware.urls'
 
