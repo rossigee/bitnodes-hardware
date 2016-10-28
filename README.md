@@ -163,7 +163,7 @@ Build and install Bitcoin client from source.
     $ cd
     $ git clone https://github.com/bitcoin/bitcoin.git
     $ cd bitcoin
-    $ git checkout v0.13.0
+    $ git checkout v0.13.1
     $ ./autogen.sh
     $ ./configure --without-gui --without-miniupnpc --disable-wallet
 
@@ -232,7 +232,7 @@ The project is currently supported on Linux and Mac OS X with Python 2.7.x. Clon
     $ source ~/.profile
     $ mkvirtualenv -a "$PWD" hardware
     $ ./setup.sh
-    $ echo v0.13.0 > ~/hardware/.current_bitcoind
+    $ echo v0.13.1 > ~/hardware/.current_bitcoind
 
 Register the project's supervisor with system's supervisor.
 
@@ -314,11 +314,11 @@ Detach the eMMC from the back of the main board of your Bitnodes Hardware. Attac
 
     $ df -h
 
-Unmount the boot volume as shown in the output of the `df` command, e.g. /dev/disk2s1, and flash the Bitnodes Hardware image ([bitnodes-hardware-2016-08-24.img.xz](https://hw.bitnodes.io/static/xz/bitnodes-hardware-2016-08-24.img.xz) - 1.1GB - [md5sum](https://hw.bitnodes.io/static/xz/bitnodes-hardware-2016-08-24.img.xz.md5sum)) into the entire disk of the eMMC, e.g. /dev/rdisk2. `unxz` is available for download from [XZ Utils](http://tukaani.org/xz/).
+Unmount the boot volume as shown in the output of the `df` command, e.g. /dev/disk2s1, and flash the Bitnodes Hardware image ([bitnodes-hardware-2016-10-28.img.xz](https://hw.bitnodes.io/static/xz/bitnodes-hardware-2016-10-28.img.xz) - 1.1GB - [md5sum](https://hw.bitnodes.io/static/xz/bitnodes-hardware-2016-10-28.img.xz.md5sum)) into the entire disk of the eMMC, e.g. /dev/rdisk2. `unxz` is available for download from [XZ Utils](http://tukaani.org/xz/).
 
     $ sudo diskutil unmount /dev/disk2s1
-    $ unxz bitnodes-hardware-2016-08-24.img.xz
-    $ sudo dd if=bitnodes-hardware-2016-08-24.img of=/dev/rdisk2 bs=1m
+    $ unxz bitnodes-hardware-2016-10-28.img.xz
+    $ sudo dd if=bitnodes-hardware-2016-10-28.img of=/dev/rdisk2 bs=1m
     $ sync
 
 A new boot volume on the eMMC will be mounted on your host system after the steps above. Eject the eMMC.
