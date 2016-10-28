@@ -123,7 +123,7 @@ Add the following lines at the end of the file to allow normal user to restart t
     bitnodes ALL=NOPASSWD: /sbin/shutdown
     bitnodes ALL=NOPASSWD: /sbin/tc
     bitnodes ALL=NOPASSWD: /sbin/iptables
-    bitnodes ALL=NOPASSWD: /etc/init.d/console-setup
+    bitnodes ALL=NOPASSWD: /bin/setupcon
 
 Update the last line in the getty file for tty1 to allow normal user to login automatically at /dev/tty1 to allow the LCD to display the status of your Bitnodes Hardware.
 
