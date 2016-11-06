@@ -71,7 +71,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'djsupervisor',
     'rest_framework',
-    'djcelery',
     'debug_toolbar',
     'hardware.administration',
     'hardware.api',
