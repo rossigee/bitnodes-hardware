@@ -25,6 +25,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hardware.settings')
 
 import curses
+import re
 import subprocess
 import sys
 import time
@@ -89,13 +90,15 @@ class Display(object):
     def update(self):
         self.node_status = cache.get('node_status')
         if self.node_status is None:
-            return 1
+            self.node_status = {}
 
         bitcoind_running = self.node_status.get('bitcoind_running', False)
         lan_address = self.node_status.get('lan_address', '')
         wan_address = self.node_status.get('wan_address', '')
         port = self.node_status.get('port', '')
         user_agent = self.node_status.get('user_agent', '')
+        if len(user_agent) > 18:
+            user_agent = re.sub(r'[\(].*?[\)]', '', user_agent)
         blocks = self.node_status.get('blocks', '')
         connections = self.node_status.get('connections', '')
         cpu_temp = get_cpu_temp()
@@ -147,7 +150,7 @@ class Display(object):
             self.addstr(10, 13, curr_exchange_rate, color, clr=True)
 
         self.screen.refresh()
-        return 15
+        return 10
 
     def addstr(self, row, col, value, color, clr=False):
         if value is None:
