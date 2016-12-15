@@ -97,7 +97,7 @@ class Display(object):
         wan_address = self.node_status.get('wan_address', '')
         port = self.node_status.get('port', '')
         user_agent = self.node_status.get('user_agent', '')
-        if len(user_agent) > 18:
+        if user_agent and len(user_agent) > 18:
             user_agent = re.sub(r'[\(].*?[\)]', '', user_agent)
         blocks = self.node_status.get('blocks', '')
         connections = self.node_status.get('connections', '')
