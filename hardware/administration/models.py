@@ -73,7 +73,7 @@ def validate_bitcoin_address(value):
     """
     Validates Bitcoin address. Testnet addresses are not allowed.
     """
-    message = '{} is not valid Bitcoin address.'.format(value)
+    message = '{} is not a valid Bitcoin address.'.format(value)
     if len(value) == 0:
         return
     if re.match(r'^[%s]{26,35}$' % B58CHARS, value) is None:
