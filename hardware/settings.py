@@ -258,6 +258,9 @@ BITCOIN_PORT = 8333
 # Default max. connections for Bitcoin client
 BITCOIN_MAX_CONNECTIONS = 64
 
+# Default prune (MiB) for Bitcoin client
+BITCOIN_PRUNE = 100000
+
 # Default RPC settings used by create_bitcoin_conf
 RPC_HOST = '127.0.0.1'
 RPC_PORT = 8332

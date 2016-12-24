@@ -48,6 +48,7 @@ def create_bitcoin_conf():
         'rpcport': str(settings.RPC_PORT),
         'rpcuser': get_random_string(100, settings.SECRET_CHARS),
         'rpcpassword': get_random_string(100, settings.SECRET_CHARS),
+        'prune': str(settings.BITCOIN_PRUNE),
     }
     conf = loader.render_to_string('bitcoin.conf.tmpl', context)
     with open(settings.BITCOIN_CONF, 'w') as f:
