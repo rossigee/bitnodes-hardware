@@ -26,6 +26,7 @@ import string
 from ConfigParser import RawConfigParser
 from cStringIO import StringIO
 from datetime import timedelta
+from psutil import disk_usage
 from psutil import net_if_addrs
 
 from django.utils.crypto import get_random_string
@@ -259,7 +260,11 @@ BITCOIN_PORT = 8333
 BITCOIN_MAX_CONNECTIONS = 64
 
 # Default prune (MiB) for Bitcoin client
-BITCOIN_PRUNE = 100000
+BITCOIN_PRUNE = 0
+if os.path.exists(SDCARD_DIR):
+    sdcard_size_gb = disk_usage(SDCARD_DIR).total / 1024 / 1024 / 1024
+    if sdcard_size_gb < 128:
+        BITCOIN_PRUNE = 100000
 
 # Default RPC settings used by create_bitcoin_conf
 RPC_HOST = '127.0.0.1'
