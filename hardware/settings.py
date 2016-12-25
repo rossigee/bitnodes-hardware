@@ -259,12 +259,12 @@ BITCOIN_PORT = 8333
 # Default max. connections for Bitcoin client
 BITCOIN_MAX_CONNECTIONS = 64
 
-# Default prune (MiB) for Bitcoin client
+# Default prune (MiB) for Bitcoin client; 80% of microSD if capacity <= 128GB
 BITCOIN_PRUNE = 0
 if os.path.exists(SDCARD_DIR):
-    sdcard_size_gb = disk_usage(SDCARD_DIR).total / 1024 / 1024 / 1024
-    if sdcard_size_gb < 128:
-        BITCOIN_PRUNE = 100000
+    sdcard_size_mb = disk_usage(SDCARD_DIR).total / 1000 / 1000
+    if sdcard_size_mb < 129000:
+        BITCOIN_PRUNE = int(0.8 * sdcard_size_mb)
 
 # Default RPC settings used by create_bitcoin_conf
 RPC_HOST = '127.0.0.1'
