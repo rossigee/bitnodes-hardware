@@ -92,5 +92,5 @@ def exchange_rate_task():
     else:
         if response.status_code == 200:
             key = 'exchange_rate'
-            settings.REDIS_CONN.lpush(key, Decimal(response.json()['bpi']['USD']['rate']))
+            settings.REDIS_CONN.lpush(key, Decimal(response.json()['bpi']['USD']['rate_float']))
             settings.REDIS_CONN.ltrim(key, 0, 96)
