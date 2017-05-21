@@ -83,10 +83,10 @@ def node_status_task():
 
 @app.task
 def exchange_rate_task():
-    url = 'https://api.coindesk.com/v1/bpi/currentprice/USD.json'
+    url = 'http://api.coindesk.com/v1/bpi/currentprice/USD.json'
     headers = {'user-agent': settings.USER_AGENT}
     try:
-        response = requests.get(url, headers=headers, verify=False, timeout=settings.HTTP_TIMEOUT)
+        response = requests.get(url, headers=headers, timeout=settings.HTTP_TIMEOUT)
     except requests.exceptions.RequestException as err:
         logger.debug(err)
     else:
