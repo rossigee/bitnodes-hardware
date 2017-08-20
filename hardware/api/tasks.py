@@ -83,14 +83,14 @@ def node_status_task():
 
 @app.task
 def exchange_rate_task():
-    url = 'http://api.coindesk.com/v1/bpi/currentprice/USD.json'
+    url = 'https://api.coinmarketcap.com/v1/ticker/bitcoin-cash/'
     headers = {'user-agent': settings.USER_AGENT}
     try:
-        response = requests.get(url, headers=headers, timeout=settings.HTTP_TIMEOUT)
+        response = requests.get(url, headers=headers, verify=False, timeout=settings.HTTP_TIMEOUT)
     except requests.exceptions.RequestException as err:
         logger.debug(err)
     else:
         if response.status_code == 200:
             key = 'exchange_rate'
-            settings.REDIS_CONN.lpush(key, Decimal(response.json()['bpi']['USD']['rate_float']))
+            settings.REDIS_CONN.lpush(key, Decimal(response.json()[0]['price_usd']))
             settings.REDIS_CONN.ltrim(key, 0, 96)
