@@ -139,7 +139,7 @@ class Display(object):
             cpu_temp = '%dC' % cpu_temp
             self.addstr(9, 13, cpu_temp, color, clr=True)
 
-        self.addstr(10, 1, 'USD/BTC', self.white)
+        self.addstr(10, 1, 'USD/BCC', self.white)
 
         if curr_exchange_rate:
             color = self.yellow
